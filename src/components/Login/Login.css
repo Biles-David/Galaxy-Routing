@@ -1,0 +1,10 @@
+.loginMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background: blue;
+  height: 80vh;
+  margin: 5vw;
+
+}
