@@ -3,10 +3,34 @@
   margin-top: 8vh;
   justify-content: space-between;
 }
+
+.routingPath {
+  /* background: rgba(0, 0, 255, .5); */
+  margin: 5%;
+  width: 40vw;
+  height: 70vh;
+  overflow: scroll;
+}
+
+.routeBody {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.routingPathTitle {
+  border-bottom: 2px solid black;
+}
+
+.routeBody p {
+  width: 60%;
+  flex-wrap: wrap;
+}
+
 .googleMap {
   position: relative;
   margin: 5%;
   height: 70vh;
-  width: 50vw;
+  width: 60vw;
   border: 5px solid black;
 }
