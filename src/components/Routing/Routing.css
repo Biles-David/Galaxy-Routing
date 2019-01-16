@@ -1,0 +1,12 @@
+.routingMain {
+  display: flex;
+  margin-top: 8vh;
+  justify-content: space-between;
+}
+.googleMap {
+  position: relative;
+  margin: 5%;
+  height: 70vh;
+  width: 50vw;
+  border: 5px solid black;
+}

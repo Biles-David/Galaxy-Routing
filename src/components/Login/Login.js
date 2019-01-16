@@ -10,11 +10,11 @@ class Login extends Component{
         <Navbar />
         <main className='loginMain'>
           <h1 className='loginTitle'>Login</h1>
-          <div>
+          <div className='loginInput'>
             <input type='text' placeholder='Username'></input>
             <input type='password' placeholder='Password'></input>
           </div>
-          <button></button>
+          <button className='loginBtn'>Continue</button>
         </main>
       </div>
     )
