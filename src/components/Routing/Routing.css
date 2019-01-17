@@ -6,10 +6,10 @@
 
 .routingPath {
   /* background: rgba(0, 0, 255, .5); */
-  margin: 5%;
+  margin: 5% 0 5% 5%;
   width: 40vw;
   height: 70vh;
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 
 .routeBody {
@@ -18,13 +18,29 @@
   justify-content: space-between;
 }
 
+.routeList {
+  /* background: blue; */
+  height: 85%;
+  overflow: scroll;
+}
+
 .routingPathTitle {
   border-bottom: 2px solid black;
 }
 
 .routeBody p {
-  width: 60%;
+  width: 50%;
+  text-align: center;
   flex-wrap: wrap;
+  align-self: center;
+}
+
+.routeNumber {
+  width: 5%;
+}
+
+.routeId {
+  width: 15%
 }
 
 .googleMap {
@@ -33,4 +49,27 @@
   height: 70vh;
   width: 60vw;
   border: 5px solid black;
+}
+
+.routeDelete {
+  font-size: 1em;
+  border-radius: 50%;
+  align-self: center;
+  cursor: pointer;
+}
+
+.addBtn {
+  position: relative;
+  left: 90%;
+  bottom: 7vh;
+}
+
+.hidden {
+  display: none;
+}
+
+.routeAdd {
+  display: flex;
+  justify-content: space-between;
+  height: 5vh;
 }

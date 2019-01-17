@@ -1,0 +1,19 @@
+.routesMain {
+  /* background: blue; */
+  height: 50vh;
+  margin: 12vh 10vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.routeDiv {
+  display: flex;
+  border: 1px solid black;
+}
+
+.routeDiv:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}

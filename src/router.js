@@ -1,15 +1,17 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+
+// Components
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Routing from './components/Routing/Routing';
-import Map from './components/Map/Map'
+import RouteList from './components/RouteList/RouteList';
 
 export default (
   <Switch>
-    <Route exact path='/' component={Login}/>
+    <Route path='/admin/routing/:id' component={Routing}/>
+    <Route path='/admin/routing' component={RouteList}/>
     <Route path='/register' component={Register}/>
-    <Route path='/admin/routing' component={Routing}/>
-    <Route path='/map' component={Map}/>
+    <Route exact path='/' component={Login}/>
   </Switch>
 )

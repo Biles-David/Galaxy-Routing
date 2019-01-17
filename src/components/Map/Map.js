@@ -18,8 +18,11 @@ const DirectionsMap = compose(
     componentDidMount() {
       const DirectionsService = new google.maps.DirectionsService();
       
+      // console.log(this.props.route[0])
+
       // creating Waypoints through Route redux
-      const { route } = this.props.route
+      const { route } = this.props
+      // console.log(route)
       const origin = route[0]
       const destination = route[route.length-1]
       const filterRoute = route.filter((e,i) => {
@@ -28,15 +31,15 @@ const DirectionsMap = compose(
         }
       })
       const waypoints = filterRoute.map((e,i) => {
-        return {location: new google.maps.LatLng({lat: e.lat, lng: e.lng})}
+        return {location: new google.maps.LatLng({lat: +e.lat, lng: +e.lng})}
       })
 
       // This displays on the map the Routing
       DirectionsService.route({
-        origin: new google.maps.LatLng({ lat: origin.lat, lng: origin.lng }),
+        origin: new google.maps.LatLng({ lat: +origin.lat, lng: +origin.lng }),
         optimizeWaypoints: false,
         waypoints: waypoints,
-        destination: new google.maps.LatLng({ lat: destination.lat, lng: destination.lng }),
+        destination: new google.maps.LatLng({ lat: +destination.lat, lng: +destination.lng }),
         travelMode: google.maps.TravelMode.DRIVING,
       }, (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
@@ -68,6 +71,10 @@ class Map extends Component {
     }
   }
   
-  const mapStateToProps = state => state
+  const mapStateToProps = state => {
+    return {
+      route: state.route.route.data
+    }
+  }
   
 export default connect(mapStateToProps, {})(Map);
