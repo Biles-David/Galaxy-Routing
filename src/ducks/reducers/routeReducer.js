@@ -34,7 +34,7 @@ export function getRoute(id){
 export function addToRoute( id, route ){
   return {
     type: ADD_TO_ROUTE,
-    payload: axios.post(`/api/route/${id}/add`, route)
+    payload: axios.post(`/api/routes/${id}/add`, route)
   }
 }
 

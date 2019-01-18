@@ -1,11 +1,17 @@
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .loginMain {
   display: flex;
   flex-direction: column;
-  /* justify-content: space-evenly; */
+  justify-content: space-evenly;
   align-items: center;
   /* background: blue; */
-  height: 80vh;
-  margin: 5vw;
+  height: 40vh;
+  width: 40vw;
 }
 
 .loginTitle {
@@ -41,5 +47,4 @@
   /* border: none; */
   outline: none;
   cursor: pointer;
-
 }

@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Navbar from '../Navbar/Navbar';
+import ParticleEffect from '../ParticlesEffect/ParticlesEffect';
 import './Login.css';
 
 class Login extends Component{
 
   render(){
     return(
-      <div>
-        <Navbar />
+      <div className='main'>
+        {/* <ParticleEffect /> */}
+        {/* <Navbar /> */}
         <main className='loginMain'>
           <h1 className='loginTitle'>Login</h1>
           <div className='loginInput'>

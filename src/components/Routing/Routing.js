@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getLocations, getRoute, clearRoute,  } from '../../ducks/reducers/routeReducer';
+import { getLocations, getRoute, clearRoute, addToRoute } from '../../ducks/reducers/routeReducer';
 import Navbar from '../Navbar/Navbar';
 import Map from '../Map/Map';
 import './Routing.css';
@@ -12,12 +12,20 @@ class Routing extends Component {
       canAdd: false,
       location_id: '',
       reasons: '',
+      needsUpdate: false
     }
   }
 
   componentDidMount(){
     this.props.getRoute(this.props.match.params.id)
+    this.setState({needsUpdate: false})
   }
+
+  // componentDidUpdate(){
+  //   if(this.state.needsUpdate){
+
+  //   }
+  // }
 
   componentWillUnmount(){
     this.props.clearRoute()
@@ -27,7 +35,24 @@ class Routing extends Component {
     this.setState({ [e.target.name]: e.target.value})
   }
 
+  addRoute(locationId, reason){
+    const { data } = this.props.route.route
+    console.log('data: ', data)
+    const newRoute = {
+      route_id: data[0].route_id,
+      route_name: data[0].route_name,
+      location_id: locationId,
+      user_id: data[0].user_id,
+      reasons: reason,
+      route_order: data.length + 1
+    }
+    console.log('newRoute: ', newRoute);
+    this.props.addToRoute(this.props.match.params.id, newRoute)
+    this.setState({canAdd: false})
+  }
+
   render(){
+    // console.log('Props', this.props)
     let { isLoaded } = this.props.route
     let route = [];
       if (isLoaded) {
@@ -55,7 +80,7 @@ class Routing extends Component {
     }
     return (
       <div className='routingMain'>
-        {this.props.route.isLoaded && console.log(this.props.route)}
+        {this.props.route.isLoaded }
         <Navbar/>
         <main className='routingPath'>
           <h1 className='routingPathTitle' >Routing Title</h1>
@@ -66,6 +91,7 @@ class Routing extends Component {
               <p>Add to route</p>
               <input placeholder='Reasons' name='reasons' onChange={this.handleChange}></input>
               <input placeholder='Store_id' name='location_id' onChange={this.handleChange}></input>
+              <button onClick={() => this.addRoute(this.state.location_id, this.state.reasons)}>Submit!</button>
             </div>
           </div>
         </main>
@@ -79,4 +105,4 @@ class Routing extends Component {
 
 const mapStateToProps = state => state
 
-export default connect( mapStateToProps, { getLocations, getRoute, clearRoute } )(Routing);
+export default connect( mapStateToProps, { getLocations, getRoute, clearRoute, addToRoute } )(Routing);
