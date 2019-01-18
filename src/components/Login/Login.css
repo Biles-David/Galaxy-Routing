@@ -1,50 +1,44 @@
-.main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.loginMain {
+.loginDiv {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  padding: 5%;
   align-items: center;
-  /* background: blue; */
-  height: 40vh;
-  width: 40vw;
+  position: absolute;
+  top: 15%;
+  right: 40%;
+  height: 30%;
+  width: 11vw;
+  background: #ffffff70;
+  border-radius: 5%;
+  border: 1px solid black;
 }
 
-.loginTitle {
-  border-bottom: 2px solid black;
-  width: 8vw;
+h1 {
+  border-bottom: 1px solid black;
+  font-size: 2em;
+  width: 70%;
   text-align: center;
-  font-family: 'Playfair Display', serif;
-  padding: 1%;
-  margin: 4vw;
 }
 
-.loginInput {
-  margin: 4vh;
+.inputDiv {
+  display: flex;
+  flex-direction: column;
+  width: 150%;
 }
 
-.loginInput input{
+input {
   margin: 5%;
   background: none;
   border: none;
   border-bottom: 2px solid black;
-  width: 25vw;
+  width: 90%;
   font-size: 1.5em;
   font-family: 'Playfair Display', serif;
   outline: none;
 }
 
-.loginInput {
-  display: flex;
-  flex-direction: column;
-}
-
-.loginBtn {
-  /* border: none; */
-  outline: none;
+button {
+  width: 40%;
   cursor: pointer;
 }

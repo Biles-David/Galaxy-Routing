@@ -1,0 +1,84 @@
+.registerBody {
+  position: absolute;
+  padding: 5%;
+  top: 10%;
+  right: 40%;
+  height: 50%;
+  width: 11vw;
+  background: #ffffff70;
+  border-radius: 5%;
+}
+
+.registerDiv {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* border: 1px solid black; */
+}
+
+.imgDiv {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  background: blue;
+  height: 32% ;
+  width: 55%;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.registerImg {
+  border-radius: 50%;
+  /* border: 1px solid black; */
+  height: 100%;
+  width: 100%;
+}
+
+.addPhoto {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  background: #50505090;
+  width: 100%;
+  height: 25%;
+  bottom: 0;
+  margin: 0;
+}
+
+.registerDiv h1 {
+  border-bottom: 1px solid black;
+  font-size: 2em;
+  width: 80%;
+  text-align: center;
+}
+
+.register_inputDiv {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.register_inputDiv input {
+  margin: 5%;
+  background: none;
+  border: none;
+  border-bottom: 2px solid black;
+  width: 70%;
+  font-size: 1.5em;
+  font-family: 'Playfair Display', serif;
+  outline: none;
+}
+
+.registerDiv button {
+  width: 40%;
+  margin: 1%;
+  cursor: pointer;
+}

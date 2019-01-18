@@ -59,14 +59,14 @@ export default class ParticleEffect extends PureComponent {
             "fps_limit": 28,
             "particles": {
               "number": {
-                "value": 450,
+                "value": 380,
                 "density": {
                   "enable": false
                 }
               },
               "line_linked": {
                 "enable": true,
-                "distance": 30,
+                "distance": 15,
               },
               "move": {
                 "speed": 1
@@ -84,7 +84,7 @@ export default class ParticleEffect extends PureComponent {
             },
             "polygon": {
               "enable": true,
-              "scale": 3,
+              "scale": 1.7,
               "type": "inline",
               "move": {
                 "radius": 10
@@ -96,7 +96,7 @@ export default class ParticleEffect extends PureComponent {
               "draw": {
                 "enable": true,
                 "stroke": {
-                  "color": "rgba(255, 255, 255, .2)"
+                  "color": "rgba(255, 255, 255, .3)"
                 }
               }
             },

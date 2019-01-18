@@ -1,26 +1,18 @@
-import React, { Component } from 'react';
-import Navbar from '../Navbar/Navbar';
-import ParticleEffect from '../ParticlesEffect/ParticlesEffect';
+import React from 'react';
 import './Login.css';
 
-class Login extends Component{
-
-  render(){
-    return(
-      <div className='main'>
-        {/* <ParticleEffect /> */}
-        {/* <Navbar /> */}
-        <main className='loginMain'>
-          <h1 className='loginTitle'>Login</h1>
-          <div className='loginInput'>
-            <input type='text' placeholder='Username'></input>
-            <input type='password' placeholder='Password'></input>
-          </div>
-          <button className='loginBtn'>Continue</button>
-        </main>
+const Login = (props) => {
+  return (
+    <div className='loginDiv'>
+      <h1>Login</h1>
+      <div className='inputDiv'>
+        <input type='text' placeholder='E-mail'></input>
+        <input type='password' placeholder='Password'></input>
       </div>
-    )
-  }
+      <button>Continue</button>
+      <button onClick={() => props.handleClick()}>Register</button>
+    </div>
+  )
 }
 
 export default Login;

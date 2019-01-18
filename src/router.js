@@ -13,6 +13,6 @@ export default (
     <Route path='/admin/routing/:id' component={Routing}/>
     <Route path='/admin/routing' component={RouteList}/>
     <Route path='/register' component={Register}/>
-    <Route exact path='/' component={Login}/>
+    <Route exact path='/' component={Home}/>
   </Switch>
 )
