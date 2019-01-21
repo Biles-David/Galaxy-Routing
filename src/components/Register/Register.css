@@ -18,24 +18,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: 1px solid black; */
 }
 
 .imgDiv {
   display: flex;
   position: relative;
   justify-content: center;
-  background: blue;
   height: 32% ;
   width: 55%;
   border-radius: 50%;
   overflow: hidden;
-  cursor: pointer;
 }
 
 .registerImg {
   border-radius: 50%;
-  /* border: 1px solid black; */
   height: 100%;
   width: 100%;
 }
@@ -46,10 +42,25 @@
   justify-content: center;
   align-items: center;
   background: #50505090;
-  width: 100%;
+  width: 87%;
   height: 25%;
   bottom: 0;
   margin: 0;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+
+input.fileUpload {
+  position: absolute;
+  margin: 0;
+  bottom: 0;
+  background: blue;
+  height: 25%;
+  width: 87%;
+  opacity: 0;
+  z-index: 1000;
+  cursor: pointer;
 }
 
 .registerDiv h1 {

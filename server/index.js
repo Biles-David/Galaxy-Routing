@@ -8,7 +8,8 @@ const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
 const port = SERVER_PORT
 
 // Controller Functions
-const { getUsers, register } = require('./controller/userCtrl');
+const { getUsers } = require('./controller/userCtrl');
+const { register } = require('./controller/authController');
 const { getLocations, addCoordinates } = require('./controller/locationCtrl');
 const { getRouteByRouteId, getRoutes, addToRoute } = require('./controller/routeCtrl');
 
@@ -30,7 +31,7 @@ massive(CONNECTION_STRING)
 
 // User Endpoints
 app.get('/api/users', getUsers);
-app.post('api/register', register);
+app.post('/api/register', register);
 
 //location Endpoints
 app.get('/api/locations', getLocations)

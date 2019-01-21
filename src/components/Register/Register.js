@@ -1,27 +1,123 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { storage } from '../../firebase/index'
+import { connect } from 'react-redux';
+import { addUser } from '../../ducks/reducers/userReducer';
 import './Register.css';
 
-const Register = (props) => {
+class Register extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      name: '',
+      email: '',
+      img: null,
+      url: null,
+      password: '',
+      passwordCheck: ''
+    }
+  }
 
-  return (
-    <div className='registerBody'>
-      <div className='registerDiv'>
-        <h1>Register</h1>
-        <div className='imgDiv'>
-          <img className='registerImg' src='https://www.awwu.biz/Home/ShowPublishedImage/743/636705502595800000' alt='Profile Image'/>
-          <p className='addPhoto'>Click to add Photo</p>
+  componentDidUpdate(prevProps, prevState){
+    if (prevState.img !== this.state.img){
+        const uploadTask = storage.ref(`images/profile/preview/${this.state.img.name}`).put(this.state.img);
+        uploadTask.on('state_changed',
+          (snapshot) => {
+            // Progress function...
+          },
+          (error) => { console.log(error) },
+          () => {
+            //Complete function...
+            storage.ref('images').child(this.state.img.name).getDownloadURL().then(url => {
+              console.log(url)
+              this.setState({ url })
+            })
+          }
+        );
+      }
+  }
+
+  handleImageChange = e => {
+    if (e.target.files[0]) {
+      this.setState({
+        img: e.target.files[0]
+      })
+    }
+  }
+
+  // handleUpload = () => {
+  //   const uploadTask = storage.ref(`images/profile/${this.state.email}`).put(this.state.img);
+  //   uploadTask.on('state_changed', 
+  //   (snapshot) => {
+  //     // Progress function...
+  //   }, 
+  //   (error) => {console.log(error)}, 
+  //   () => {
+  //     //Complete function...
+  //     storage.ref('images').child(this.state.img.name).getDownloadURL().then(url => {
+  //       console.log(url)
+  //       this.setState({url})
+  //     })
+  //   }
+  //   );
+  // }
+
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value })
+  }
+
+  handleSubmit = () => {
+    const { name, email, url, password, passwordCheck } = this.state;
+    if (password !== passwordCheck) {
+      window.alert("Passwords don't match")
+      return (
+        null
+      )
+    } else {
+      const user = { name, email, img: url, password }
+      this.props.addUser(user)
+      const uploadTask = storage.ref(`images/profile/${this.state.email}`).put(this.state.img);
+      uploadTask.on('state_changed',
+        (snapshot) => {
+          // Progress function...
+        },
+        (error) => { console.log(error) },
+        () => {
+          //Complete function...
+          storage.ref('images').child(this.state.img.name).getDownloadURL().then(url => {
+            console.log(url)
+            this.setState({ url })
+          })
+        }
+      );
+    }
+  }
+
+  render() {
+    const fakeImg = 'https://www.awwu.biz/Home/ShowPublishedImage/743/636705502595800000'
+    return (
+      <div className='registerBody'>
+        <div className='registerDiv'>
+          <h1>Register</h1>
+          <div className='imgDiv'>
+            <img className='registerImg' src={this.state.url || fakeImg} alt='Profile' />
+            <input type='file' onChange={this.handleImageChange} className='fileUpload' />
+            <p className='addPhoto'> {this.state.url ? 'Click to change' : 'Click to add Photo'} </p>
+          </div>
+          {/* <button onClick={() => this.handleUpload()}>Upload</button> */}
+          <div className='register_inputDiv'>
+            <input name='name' type='text' placeholder='Name' onChange={this.handleChange}></input>
+            <input name='email' type='text' placeholder='E-mail' onChange={this.handleChange}></input>
+            <input name='password' type='password' placeholder='Password' onChange={this.handleChange}></input>
+            <input name='passwordCheck' type='password' placeholder='Confirm Password' onChange={this.handleChange}></input>
+          </div>
+          <button onClick={() => this.props.handleClick()}>Cancel</button>
+          <button onClick={() => this.handleSubmit()}>Submit!</button>
         </div>
-        <div className='register_inputDiv'>
-          <input type='text' placeholder='Name'></input>
-          <input type='text' placeholder='E-mail'></input>
-          <input type='password' placeholder='Password'></input>
-          <input type='password' placeholder='Confirm Password'></input>
-        </div>
-        <button onClick={() => props.handleClick()}>Cancel</button>
-        <button>Register!</button>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
-export default Register;
+const mapStateToProps = state => state
+
+export default connect(mapStateToProps, { addUser })(Register);

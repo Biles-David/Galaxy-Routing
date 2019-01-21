@@ -19,17 +19,17 @@ class Home extends Component {
   render() {
     if (!this.state.register) {
       return (
-        <>
+        <div className='homeDiv'>
           <ParticleEffect />
           <Login handleClick={this.handleClick} className='homeLogin' />
-        </>
+        </div>
       )
     } else {
       return (
-        <>
+        <div className='homeDiv'>
           <ParticleEffect />
           <Register handleClick={this.handleClick} />
-        </>
+        </div>
       )
     }
   }
