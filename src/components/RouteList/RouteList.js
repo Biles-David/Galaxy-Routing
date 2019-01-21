@@ -1,41 +1,55 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Navbar from '../Navbar/Navbar';
 import { getRoutes } from '../../ducks/reducers/routeReducer';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import Navbar from '../Navbar/Navbar';
+import Sidebar from '../Sidebar/Sidebar';
 import './RouteList.css';
 
 class RouteList extends Component {
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.getRoutes()
   }
 
-  render() { 
-    console.log(this.props)
+  render() {
+    // console.log(this.props)
     const { allRoutes, isLoaded } = this.props
     let routes = []
-    if(isLoaded){
-      routes = allRoutes.map( (e, i) => {
+    if (isLoaded) {
+      routes = allRoutes.map((e, i) => {
         return (
           <Link to={`/admin/routing/${allRoutes[i].route_id}`} key={i} className='routeDiv'>
-            <img src={allRoutes.img} alt='img'/>
-            <h1>Route id: {allRoutes[i].route_id}</h1>
-            <h1>Purchaser: {allRoutes[i].name}</h1>
-            <h1>Route count: {allRoutes[i].count}</h1>
+            <img className='routeImg' src={allRoutes[i].img} alt='img' />
+            <div>
+              <h1 className='routeTitle'>Route </h1>
+              <h2>{allRoutes[i].route_name}</h2>
+            </div>
+            <div>
+              <h1 className='routeTitle'>Driver </h1>
+              <h2>{allRoutes[i].first_name} {allRoutes[i].last_name} </h2>
+            </div>
+            <div>
+              <h1 className='routeTitle'>Route count </h1>
+              <h2>{allRoutes[i].count}</h2>
+            </div>
           </Link>
         )
       })
     }
-    if(!isLoaded){
+    if (!isLoaded) {
       return (
         <div>
           Loading...
         </div>
       )
     }
-    return ( 
+    if (!this.props.user.admin) {
+      return <Redirect path to="/user" ></Redirect>
+    }
+    return (
       <div>
+        {/* <Sidebar/> */}
         <Navbar />
         <main className='routesMain'>
           {routes}
@@ -48,8 +62,9 @@ class RouteList extends Component {
 const mapStateToProps = state => {
   return {
     allRoutes: state.route.allRoutes.data,
-    isLoaded: state.route.routesLoaded
+    isLoaded: state.route.routesLoaded,
+    user: state.user.user
   }
 };
 
-export default connect( mapStateToProps, { getRoutes } )(RouteList);
+export default connect(mapStateToProps, { getRoutes })(RouteList);

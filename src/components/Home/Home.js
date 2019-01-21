@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import ParticleEffect from '../ParticlesEffect/ParticlesEffect';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
@@ -8,7 +10,7 @@ class Home extends Component {
   constructor() {
     super()
     this.state = {
-      register: true
+      register: false
     }
   }
 
@@ -21,7 +23,17 @@ class Home extends Component {
       return (
         <div className='homeDiv'>
           <ParticleEffect />
-          <Login handleClick={this.handleClick} className='homeLogin' />
+          <Login
+            handleLogin={this.handleLogin}
+            handleClick={this.handleClick}
+            className='homeLogin'
+          />
+          {
+            this.props.user.name ?
+              <Redirect push to={
+                this.props.user.admin ? '/admin/routing' : '/user'
+              } /> : null
+          }
         </div>
       )
     } else {
@@ -29,10 +41,22 @@ class Home extends Component {
         <div className='homeDiv'>
           <ParticleEffect />
           <Register handleClick={this.handleClick} />
+          {
+            this.props.user.name ?
+              <Redirect push to={
+                this.props.user.admin ? '/admin/routing' : '/user'
+              } /> : null
+          }
         </div>
       )
     }
   }
 }
 
-export default Home
+const mapStateToProps = state => {
+  return {
+    user: state.user.user
+  }
+}
+
+export default connect(mapStateToProps)(Home)

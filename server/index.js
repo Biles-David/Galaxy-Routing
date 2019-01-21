@@ -8,10 +8,10 @@ const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
 const port = SERVER_PORT
 
 // Controller Functions
-const { getUsers } = require('./controller/userCtrl');
-const { register } = require('./controller/authController');
+const { getUsers, register, login } = require('./controller/userCtrl');
 const { getLocations, addCoordinates } = require('./controller/locationCtrl');
 const { getRouteByRouteId, getRoutes, addToRoute } = require('./controller/routeCtrl');
+const { usersOnly, adminsOnly } = require('./middleware/authMiddleware');
 
 const app = express()
 
@@ -30,8 +30,9 @@ massive(CONNECTION_STRING)
 .catch(err => console.log(err));
 
 // User Endpoints
-app.get('/api/users', getUsers);
-app.post('/api/register', register);
+app.get('/users', getUsers);
+app.post('/users/register', register);
+app.post('/users/login', login);
 
 //location Endpoints
 app.get('/api/locations', getLocations)

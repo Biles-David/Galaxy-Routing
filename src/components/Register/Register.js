@@ -13,13 +13,52 @@ class Register extends Component {
       img: null,
       url: null,
       password: '',
-      passwordCheck: ''
+      passwordCheck: '',
+      user: {}
     }
   }
 
-  componentDidUpdate(prevProps, prevState){
-    if (prevState.img !== this.state.img){
-        const uploadTask = storage.ref(`images/profile/preview/${this.state.img.name}`).put(this.state.img);
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.img !== this.state.img) {
+      const uploadTask = storage.ref(`images/profile/preview/${this.state.img.name}`).put(this.state.img);
+      uploadTask.on('state_changed',
+        (snapshot) => {
+          // Progress function...
+        },
+        (error) => { console.log(error) },
+        () => {
+          //Complete function...
+          storage.ref('images').child(this.state.img.name).getDownloadURL().then(url => {
+            console.log(url)
+            this.setState({ url })
+          })
+        }
+      );
+    }
+  }
+
+  handleImageChange = e => {
+    if (e.target.files[0]) {
+      this.setState({
+        img: e.target.files[0]
+      })
+    }
+  }
+
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value })
+  }
+
+  handleSubmit = () => {
+    const { name, email, url, password, passwordCheck } = this.state;
+    if (password !== passwordCheck) {
+      window.alert("Passwords don't match")
+      return (
+        null
+      )
+    } else {
+      if (this.state.img) {
+        const uploadTask = storage.ref(`images/profile/${this.state.email}`).put(this.state.img);
         uploadTask.on('state_changed',
           (snapshot) => {
             // Progress function...
@@ -34,61 +73,10 @@ class Register extends Component {
           }
         );
       }
-  }
-
-  handleImageChange = e => {
-    if (e.target.files[0]) {
-      this.setState({
-        img: e.target.files[0]
+      const user = { name, email, img: url || null, password }
+      this.props.addUser(user).then( response => {
+        // this.setState({user: response.value.data})
       })
-    }
-  }
-
-  // handleUpload = () => {
-  //   const uploadTask = storage.ref(`images/profile/${this.state.email}`).put(this.state.img);
-  //   uploadTask.on('state_changed', 
-  //   (snapshot) => {
-  //     // Progress function...
-  //   }, 
-  //   (error) => {console.log(error)}, 
-  //   () => {
-  //     //Complete function...
-  //     storage.ref('images').child(this.state.img.name).getDownloadURL().then(url => {
-  //       console.log(url)
-  //       this.setState({url})
-  //     })
-  //   }
-  //   );
-  // }
-
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value })
-  }
-
-  handleSubmit = () => {
-    const { name, email, url, password, passwordCheck } = this.state;
-    if (password !== passwordCheck) {
-      window.alert("Passwords don't match")
-      return (
-        null
-      )
-    } else {
-      const user = { name, email, img: url, password }
-      this.props.addUser(user)
-      const uploadTask = storage.ref(`images/profile/${this.state.email}`).put(this.state.img);
-      uploadTask.on('state_changed',
-        (snapshot) => {
-          // Progress function...
-        },
-        (error) => { console.log(error) },
-        () => {
-          //Complete function...
-          storage.ref('images').child(this.state.img.name).getDownloadURL().then(url => {
-            console.log(url)
-            this.setState({ url })
-          })
-        }
-      );
     }
   }
 

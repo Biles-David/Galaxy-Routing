@@ -42,3 +42,18 @@ button {
   width: 40%;
   cursor: pointer;
 }
+
+.hidden {
+  display: none;
+}
+
+.hiddenEye {
+  position: absolute;
+  left: 78%;
+  top: 60%;
+  height: 4%;
+  width: 7%;
+  opacity: .5;
+  z-index: 100;
+  cursor: pointer;
+}

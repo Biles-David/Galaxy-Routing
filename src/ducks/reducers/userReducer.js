@@ -2,19 +2,31 @@ import axios from 'axios';
 
 // Action Types
 const GET_USERS = 'GET_USERS';
+const LOGIN_USER = 'LOGIN_USER'
+// *not in use --V
 const UPDATE_NAME = 'UPDATE_NAME';
+// *not in use --V
 const UPDATE_EMPLOYEE_NUMBER = 'UPDATE_EMPLOYEE_NUMBER';
+// *not in use --V
 const UPDATE_EMAIL = 'UPDATE_EMAIL';
+// *not in use --V
 const UPDATE_POSITION = 'UPDATE_POSITION';
+// *not in use --V
 const UPDATE_IMG = 'UPDATE_IMG';
+// *not in use --V
 const UPDATE_ADMIN = 'UPDATE_ADMIN';
+// *not in use --V
 const UPDATE_HASH = 'UPDATE_HASH';
 const ADD_USER = 'ADD_USER';
 
 // Initial State
 const initialState = {
   users: [],
-  user: {},
+  user: {
+    name: 'Eddie Johnson',
+    img: 'https://firebasestorage.googleapis.com/v0/b/galaxy-routing.appspot.com/o/images%2FIMG_0313.JPG?alt=media&token=bcca0f8c-eb9d-462c-8c4d-90f8fab3e08b',
+    admin: true
+  },
   name: '',
   employee_number: 0,
   email: '',
@@ -28,7 +40,14 @@ const initialState = {
 export function getUsers() {
   return {
     type: GET_USERS,
-    payload: axios('api/users')
+    payload: axios('/users')
+  }
+}
+
+export function loginUser(user) {
+  return {
+    type: LOGIN_USER,
+    payload: axios.post('/users/login', user)
   }
 }
 
@@ -84,7 +103,7 @@ export function updateHash(hash) {
 export function addUser(user) {
   return {
     type: ADD_USER,
-    payload: axios.post('/api/register', user)
+    payload: axios.post('/users/register', user)
   }
 }
 
@@ -96,11 +115,16 @@ export default function (state = initialState, action) {
         ...state,
         users: action.payload
       }
-    case UPDATE_NAME:
+    case `${GET_USERS}_REJECTED`:
+      return console.log('Error getting Users')
+    case `${LOGIN_USER}_FULFILLED`:
       return {
         ...state,
-        name: action.payload
+        user: action.payload.data
       }
+    case `${LOGIN_USER}_REJECTED`:
+    case UPDATE_NAME:
+      return console.log('Error logging in.')
     case UPDATE_EMPLOYEE_NUMBER:
       return {
         ...state,
@@ -134,7 +158,7 @@ export default function (state = initialState, action) {
     case `${ADD_USER}_FULFILLED`:
       return {
         ...state,
-        user: action.payload
+        user: action.payload.data
       }
     default:
       return state

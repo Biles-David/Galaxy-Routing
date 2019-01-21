@@ -1,7 +1,70 @@
 .navbarMain {
   position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   top: 0;
-  background: rgba(0, 0, 0, .7);
-  width: 100vw;
+  padding: 0 2vw;
+  /* background: rgba(0, 0, 0, .7); */
+  width: 96vw;
   height: 8vh;
+}
+
+.navbarImg {
+  height: 7vh;
+  width: 80px;
+  border-radius: 50%;
+  /* margin: 0 20px; */
+}
+
+.navbarTitle {
+  border: none;
+  width: 30%;
+}
+
+.navbarName {
+  width: 100px;
+  overflow: auto;
+  text-align: center;
+}
+
+.userDisplay {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  width: 13vw;
+}
+
+.navbarMenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  /* margin-left: 15px; */
+}
+
+.navbarMenuBox {
+  display: flex;
+  /* margin-left: 10px; */
+}
+
+
+.navbarMenu td {
+  height: 4px;
+  width: 4px;
+  background: #000000b3;
+  margin: 1.5px;
+}
+
+.navbarMenuBox:hover > .navbarMenu td {
+  animation: spin .5s linear
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg) 
+  }
+  100% {
+    transform: rotate(90deg)
+  }
 }

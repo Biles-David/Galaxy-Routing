@@ -10,10 +10,34 @@
 
 .routeDiv {
   display: flex;
+  justify-content: space-evenly;
+  width: 70vw;
+  color: black;
   border: 1px solid black;
+  outline: none;
+  text-decoration: none;
+  margin: 1vh;
+}
+
+.routeDiv h1 {
+  width: 13vw;
+  border-bottom: 5px solid black;
+  margin-right: 1vw;
+}
+
+.routeDiv h2 {
+  display: flex;
+  justify-content: center;
 }
 
 .routeDiv:hover {
   cursor: pointer;
   transform: scale(1.05);
+}
+
+.routeImg {
+  height: 13vh;
+  width: 120px;
+  border-radius: 50%;
+  margin: auto 2vw;
 }
