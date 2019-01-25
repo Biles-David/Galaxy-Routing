@@ -1,77 +1,121 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getLocations, getRoute, clearRoute, addToRoute } from '../../ducks/reducers/routeReducer';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import ParticlesEffect from '../ParticlesEffect/ParticlesEffect';
 import Navbar from '../Navbar/Navbar';
 import Map from '../Map/Map';
 import './Routing.css';
 
+import Reorder, {
+  reorder,
+  reorderImmutable,
+  reorderFromTo,
+  reorderFromToImmutable
+} from 'react-reorder';
+
+// import { reorder, reorderImmutable, reorderFromTo, reorderFromToImmutable } from 'react-reorder';
+
+
 class Routing extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       canAdd: false,
       location_id: '',
       reasons: '',
-      needsUpdate: false
+      route: [],
+      isLoaded: false,
+      update: false
     }
   }
 
-  componentDidMount(){
-    this.props.getRoute(this.props.match.params.id)
-    this.setState({needsUpdate: false})
-  }
-
-  // componentDidUpdate(){
-  //   if(this.state.needsUpdate){
-
-  //   }
-  // }
-
-  componentWillUnmount(){
-    this.props.clearRoute()
+  componentDidMount() {
+    axios.post(`/api/routes/${this.props.match.params.id}`).then(response => {
+      this.setState({ route: response.data, isLoaded: true })
+    })
   }
 
   handleChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value})
+    this.setState({ [e.target.name]: e.target.value })
   }
 
-  addRoute(locationId, reason){
-    const { data } = this.props.route.route
-    console.log('data: ', data)
-    const newRoute = {
-      route_id: data[0].route_id,
-      route_name: data[0].route_name,
-      location_id: locationId,
-      user_id: data[0].user_id,
-      reasons: reason,
-      route_order: data.length + 1
+  handleDelete = (e) => {
+    let { route } = this.state
+    route.splice(e.target.name, 1)
+    this.setState({ route, update: !this.state.update })
+    console.log(this.state.route)
+  }
+
+  addRoute = async (locationId, reason) => {
+    const { route } = this.state
+    const body = { store_id: +locationId }
+    console.log(body)
+    let result = await axios.post('/api/locations/exact', body)
+    if (result.data) {
+      const newRoute = {
+        route_id: route[0].route_id,
+        route_name: route[0].route_name,
+        location_id: +locationId,
+        user_id: route[0].user_id,
+        reasons: reason,
+        route_order: route.length + 1,
+        lat: result.data[0].lat,
+        lng: result.data[0].lng
+      }
+      this.setState({ route: [...this.state.route, newRoute], canAdd: false })
     }
-    console.log('newRoute: ', newRoute);
-    this.props.addToRoute(this.props.match.params.id, newRoute)
-    this.setState({canAdd: false})
+  }
+  ////////////////////////////
+  onReorder = (event, previousIndex, nextIndex, fromId, toId) => {
+    this.setState({
+      route: reorder(this.state.route, previousIndex, nextIndex)
+    });
   }
 
-  render(){
-    // console.log('Props', this.props)
-    let { isLoaded } = this.props.route
-    let route = [];
-      if (isLoaded) {
-        const { data } = this.props.route.route
-        // console.log(this.props.route.route.data)
-        route = data.map( (e, i) => {
-          const alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-          return (
-            <div className='routeBody' key={data[i].location_id}>
-              <h1 className='routeNumber'>{alphabet[i]}</h1>
-              <p>{data[i].reasons}</p>
-              <h1 className='routeId'>{data[i].location_id}</h1>
-              <h1>=</h1>
-              <button className='routeDelete'>X</button>
+  onReorderGroup = (event, previousIndex, nextIndex, fromId, toId) => {
+    if (fromId === toId) {
+      const list = reorderImmutable(this.state[fromId], previousIndex, nextIndex);
+
+      this.setState({
+        [fromId]: list
+      });
+    } else {
+      const lists = reorderFromToImmutable({
+        from: this.state[fromId],
+        to: this.state[toId]
+      }, previousIndex, nextIndex);
+
+      this.setState({
+        [fromId]: lists.from,
+        [toId]: lists.to
+      });
+    }
+  }
+
+
+  render() {
+    let routeMap = [];
+    if (this.state.isLoaded) {
+      const { route } = this.state
+      routeMap = route.map((e, i) => {
+        const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+        return (
+          <div className='routeBody' key={route[i].location_id}>
+            <h1 className='routeNumber'>{alphabet[i]}</h1>
+            <p>{route[i].reasons}</p>
+            <h1 className='routeId'>{route[i].location_id}</h1>
+            <div className='routeDrag'>
+              <span></span>
+              <span></span>
+              <span></span>
             </div>
-          )
-        })
-      } 
-    if(!isLoaded){
+            <button name={i} className='routeDelete' onClick={(e) => this.handleDelete(e)}>X</button>
+          </div>
+        )
+      })
+      // .toArray()
+    }
+    if (!this.state.isLoaded) {
       return (
         <div>
           Loading...
@@ -80,14 +124,17 @@ class Routing extends Component {
     }
     return (
       <div className='routingMain'>
-        {this.props.route.isLoaded }
-        <Navbar/>
+        <ParticlesEffect />
+        <Navbar />
+        <Link className='button' to='/admin/routing'><span>Back</span></Link>
         <main className='routingPath'>
-          <h1 className='routingPathTitle' >Routing Title</h1>
-          <button className='addBtn' onClick={ () => this.setState({canAdd: !this.state.canAdd})}>{this.state.canAdd ? 'Cancel' : 'Add'}</button>
+          <h1 className='routingPathTitle' >{`Route`}</h1>
+          <button className='addBtn' onClick={() => this.setState({ canAdd: !this.state.canAdd })}>{this.state.canAdd ? 'Cancel' : 'Add'}</button>
           <div className='routeList'>
-            {route}
-            <div className={this.state.canAdd ? 'routeAdd': 'hidden'}>
+            <Reorder reorderId="my-list" lock="horizontal" onReorder={this.onReorder}>
+              {routeMap}
+            </Reorder>
+            <div className={this.state.canAdd ? 'routeAdd' : 'hidden'}>
               <p>Add to route</p>
               <input placeholder='Reasons' name='reasons' onChange={this.handleChange}></input>
               <input placeholder='Store_id' name='location_id' onChange={this.handleChange}></input>
@@ -96,13 +143,11 @@ class Routing extends Component {
           </div>
         </main>
         <div className='googleMap'>
-          {this.props.route.route.data && <Map/>}
+          {this.state.route && <Map route={this.state.route} update={this.state.update} />}
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => state
-
-export default connect( mapStateToProps, { getLocations, getRoute, clearRoute, addToRoute } )(Routing);
+export default Routing;

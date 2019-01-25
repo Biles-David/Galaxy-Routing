@@ -23,9 +23,10 @@ async function register(req, res) {
   if(registeredUser[0]){
     const user = registeredUser[0]
     req.session.user = {
-      name: user.name,
+      name: `${user.first_name} ${user.last_name}`,
       img: user.img,
-      admin: user.admin
+      admin: user.admin,
+      id: user.id
     };
   }
   return res.status(201).json(req.session.user)
@@ -45,18 +46,30 @@ async function login ( req, res ) {
       let user = log[0]
       // console.log(user)
       req.session.user = {
-        name: user.name,
+        name: `${user.first_name} ${user.last_name}`,
         img: user.img,
-        admin: user.admin
+        admin: user.admin,
+        id: user.id
       };
       res.status(200).json(req.session.user)
-      console.log(req.session.user)
+      // console.log('Session.user after log: ', req.session.user)
     }
   }
+}
+
+function sessionCheck ( req, res ) {
+  res.status(200).json(req.session.user)
+}
+
+async function logout ( req, res ) {
+  req.session.destroy();
+  return res.sendStatus(200)
 }
 
 module.exports = {
   getUsers,
   register,
-  login
+  login,
+  sessionCheck,
+  logout
 }

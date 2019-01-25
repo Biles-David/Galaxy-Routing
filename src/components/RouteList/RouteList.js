@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getRoutes } from '../../ducks/reducers/routeReducer';
 import { Link, Redirect } from 'react-router-dom';
+import ParticlesEffect from '../ParticlesEffect/ParticlesEffect';
 import Navbar from '../Navbar/Navbar';
 import Sidebar from '../Sidebar/Sidebar';
 import './RouteList.css';
@@ -44,17 +45,18 @@ class RouteList extends Component {
         </div>
       )
     }
-    if (!this.props.user.admin) {
-      return <Redirect path to="/user" ></Redirect>
+    if (this.props.user.admin === false) {
+      return console.log('not admin: ', this.props.user.admin) || <Redirect path to="/user" ></Redirect>
     }
     return (
-      <div>
-        {/* <Sidebar/> */}
-        <Navbar />
+      <div className='routelistMain'>
+        <ParticlesEffect />
+        <h2 className='title'>Galaxy Routing</h2>
+        <Sidebar />
         <main className='routesMain'>
           {routes}
         </main>
-      </div>
+      </div >
     );
   }
 }

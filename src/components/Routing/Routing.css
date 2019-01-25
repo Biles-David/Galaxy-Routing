@@ -1,12 +1,19 @@
 .routingMain {
   display: flex;
-  margin-top: 8vh;
+  /* margin-top: 8vh; */
   justify-content: space-between;
+  overflow: hidden;
+  height: 100vh;
 }
 
 .routingPath {
-  /* background: rgba(0, 0, 255, .5); */
-  margin: 5% 0 5% 5%;
+  background: #ffffff70;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 50px;
+  padding: 3%;
+  margin: 5% 0 -5% 5%;
   width: 40vw;
   height: 70vh;
   /* overflow: scroll; */
@@ -21,6 +28,7 @@
 .routeList {
   /* background: blue; */
   height: 85%;
+  width: 100%;
   overflow: scroll;
 }
 
@@ -37,30 +45,40 @@
 
 .routeNumber {
   width: 5%;
+  border: none;
 }
 
 .routeId {
-  width: 15%
+  width: 15%;
+  border: none;
 }
 
 .googleMap {
   position: relative;
+  background: #858B95;
   margin: 5%;
-  height: 70vh;
+  height: 78vh;
   width: 60vw;
-  border: 5px solid black;
+  /* border: 5px solid #ffffff70; */
+  border-radius: 25px;
+  padding: 1%;
 }
 
 .routeDelete {
-  font-size: 1em;
-  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
   align-self: center;
   cursor: pointer;
+  padding: 0;
+  /* background:white;
+  text-align: center; */
 }
 
 .addBtn {
   position: relative;
-  left: 90%;
+  left: 40%;
+  width: 10%;
   bottom: 7vh;
 }
 
@@ -71,5 +89,89 @@
 .routeAdd {
   display: flex;
   justify-content: space-between;
-  height: auto;
+  align-items: center;
+}
+
+.routeDrag {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.routeDrag span {
+  height: 2px;
+  width: 20px;
+  background: black;
+  margin: 2px;
+}
+
+.addTitle {
+  height: 5vh;
+  font-size: .8em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.title {
+  display: absolute;
+  top: 0;
+  z-index: 5;
+  margin: 9vh 0 0 20vw;
+  color: white;
+  font-family: 'Jim Nightshade', cursive;;
+  font-size: 5em;
+  font-weight: bold;
+}
+
+.button {
+  position: absolute;
+  display: inline-block;
+  border-radius: 4px;
+  background: none;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 100px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin-left: 2vw;
+  height: 20px;
+  z-index: 9;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00ab';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-left: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  left: 0;
+}
+
+#div1, #div2 {
+  float: left;
+  width: 100px;
+  height: 35px;
+  margin: 7vh;
+  padding: 10px;
+  border: 1px solid black;
 }

@@ -15,7 +15,7 @@ export default (
     <Route path='/admin/routing' component={RouteList}/>
     <Route path='/register' component={Register}/>
     {/* <Route path='/admin' component={AdminMain} /> */}
-    <Route path='/user' component={UserMain} />
-    <Route path='/' component={Home}/>
+    <Route path='/user/:id' component={UserMain} />
+    <Route exact path='/' component={Home}/>
   </Switch>
 )

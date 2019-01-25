@@ -1,6 +1,31 @@
-.userMain {
-  /* background: #263042; */
-  margin-left: 17vw;
+.userMainBody {
+  position: absolute;
   height: 100vh;
-  width: 83vw;
+  width: 100vw;
+}
+
+.userMain {
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff70;
+  height: 80vh;
+  width: 60vw;
+  margin: 5vh auto;
+  border-radius: 50px;
+}
+
+.userMap {
+    height: 50vh;
+    width: 40vw;
+}
+
+.userMap-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 55vh;
+  width: 44vw;
+  background: grey;
+  border-radius: 25px;
 }

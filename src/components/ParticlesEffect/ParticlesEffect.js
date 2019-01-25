@@ -6,7 +6,7 @@ import './ParticlesEffect.css';
 export default class ParticleEffect extends PureComponent {
   render() {
     return (
-      <>
+      // <>
         <Particles
           className='particles'
           params={{
@@ -52,7 +52,7 @@ export default class ParticleEffect extends PureComponent {
             },
             "retina_detect": true
           }} />
-        <Particles
+        /* <Particles
           className='polygon'
           canvasClassName='canvas'
           params={{
@@ -115,8 +115,8 @@ export default class ParticleEffect extends PureComponent {
                 }
               }
             }
-          }} />
-      </>
+          }} /> */
+      // </>
     )
   }
 }

@@ -3,8 +3,8 @@
   padding: 5%;
   top: 10%;
   right: 40%;
-  height: 50%;
-  width: 11vw;
+  height: 60%;
+  width: 15vw;
   background: #ffffff70;
   border-radius: 5%;
 }
@@ -92,4 +92,9 @@ input.fileUpload {
   width: 40%;
   margin: 1%;
   cursor: pointer;
+}
+
+.registerName {
+  display: flex;
+  width: 80%;
 }

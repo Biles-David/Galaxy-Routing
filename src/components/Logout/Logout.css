@@ -1,0 +1,8 @@
+.logoutMain {
+  font-size: 1.5em;
+}
+
+.logoutMain:hover {
+  color: #28e7ee;
+  cursor: pointer;
+}

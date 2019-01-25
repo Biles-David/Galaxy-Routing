@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import ParticleEffect from '../ParticlesEffect/ParticlesEffect';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import Navbar from '../Navbar/Navbar';
 import './Home.css';
 
 class Home extends Component {
@@ -21,20 +22,23 @@ class Home extends Component {
   render() {
     if (!this.state.register) {
       return (
-        <div className='homeDiv'>
-          <ParticleEffect />
-          <Login
-            handleLogin={this.handleLogin}
-            handleClick={this.handleClick}
-            className='homeLogin'
-          />
-          {
-            this.props.user.name ?
-              <Redirect push to={
-                this.props.user.admin ? '/admin/routing' : '/user'
-              } /> : null
-          }
-        </div>
+        <>
+          <Navbar />
+          <div className='homeDiv'>
+            <ParticleEffect />
+            <Login
+              handleLogin={this.handleLogin}
+              handleClick={this.handleClick}
+              className='homeLogin'
+            />
+            {
+              this.props.user.name ?
+                <Redirect push to={
+                  this.props.user.admin ? '/admin/routing' : `/user/${this.props.user.id}`
+                } /> : null
+            }
+          </div>
+        </>
       )
     } else {
       return (

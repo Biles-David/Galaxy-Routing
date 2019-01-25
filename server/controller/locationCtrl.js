@@ -19,8 +19,16 @@ function getOneLocation (req, res) {
   .catch(err => console.log(err))
 }
 
+function getLatLng (req, res) {
+  const db = req.app.get('db');
+  db.get_lat_lng(req.body.store_id)
+  .then(response => res.status(200).json(response))
+  .catch(err => console.log(err))
+}
+
 module.exports = {
   getLocations,
   addCoordinates,
-  getOneLocation
+  getOneLocation,
+  getLatLng
 }

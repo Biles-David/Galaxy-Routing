@@ -8,7 +8,8 @@ class Register extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: '',
+      first_name: '',
+      last_name: '',
       email: '',
       img: null,
       url: null,
@@ -93,7 +94,10 @@ class Register extends Component {
           </div>
           {/* <button onClick={() => this.handleUpload()}>Upload</button> */}
           <div className='register_inputDiv'>
-            <input name='name' type='text' placeholder='Name' onChange={this.handleChange}></input>
+            <div className='registerName'>
+              <input name='first_name' type='text' placeholder='First Name' onChange={this.handleChange}></input>
+              <input name='last_name' type='text' placeholder='Last Name' onChange={this.handleChange}></input>
+            </div>
             <input name='email' type='text' placeholder='E-mail' onChange={this.handleChange}></input>
             <input name='password' type='password' placeholder='Password' onChange={this.handleChange}></input>
             <input name='passwordCheck' type='password' placeholder='Confirm Password' onChange={this.handleChange}></input>

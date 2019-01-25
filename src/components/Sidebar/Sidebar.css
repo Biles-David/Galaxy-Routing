@@ -5,24 +5,22 @@
   align-items: center;
   top: 0;
   padding-top: 1vh;
-  background: #000000b3;
-  height: 100vh;
+  background: #2b2b2b;
+  height: 99vh;
   width: 17vw;
+  border-right: 2px solid white;
   display: flex;
 }
 
-.sidebarUl {
+.sidebarMain h1 {
+  color: white;
+  border-color: white;
+}
+
+.sidebarList {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-}
-
-.sidebarLink {
-  list-style: none;
-  font-size: 2em;
-  color: black;
-  text-decoration: underline;
-  line-height: 1.5em;
 }
 
 .sidebarLink:hover {

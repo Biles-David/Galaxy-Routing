@@ -57,3 +57,10 @@ button {
   z-index: 100;
   cursor: pointer;
 }
+
+.errorMsg {
+  position: absolute;
+  color: red;
+  font-size: .5em;
+  bottom: 0;
+}
