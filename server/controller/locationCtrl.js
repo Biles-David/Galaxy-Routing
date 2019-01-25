@@ -26,6 +26,7 @@ function getLatLng (req, res) {
   .catch(err => console.log(err))
 }
 
+
 module.exports = {
   getLocations,
   addCoordinates,

@@ -20,8 +20,22 @@ function addToRoute (req, res) {
   .catch(err => console.log(err))
 }
 
+function deleteRoute(req, res) {
+  const db = req.app.get('db');
+  db.delete_route(req.body.route_id)
+  .then(response => res.sendStatus(200))
+  .catch(err => console.log(err))
+}
+
+function updateFullRoute(req, res) {
+  const db = req.app.get('db');
+  db.routes.insert(req.body.route, function(err, res){});
+}
+
 module.exports = {
   getRouteByRouteId,
   getRoutes,
-  addToRoute
+  addToRoute,
+  deleteRoute,
+  updateFullRoute
 }

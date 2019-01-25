@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import ParticlesEffect from '../ParticlesEffect/ParticlesEffect';
 import Navbar from '../Navbar/Navbar';
 import Map from '../Map/Map';
+import axios from 'axios';
 import './Routing.css';
 
 import Reorder, {
@@ -33,6 +34,10 @@ class Routing extends Component {
     axios.post(`/api/routes/${this.props.match.params.id}`).then(response => {
       this.setState({ route: response.data, isLoaded: true })
     })
+  }
+
+  componentWillUnmount(){
+
   }
 
   handleChange = (e) => {
