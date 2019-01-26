@@ -45,7 +45,7 @@ app.post('/api/locations/exact', getLatLng);
 app.post('/api/routes/:id', getRouteByRouteId)
 app.get('/api/routes', getRoutes)
 app.post('/api/routes/:id/add', addToRoute)
-app.delete('/api/routes/delete', deleteRoute)
+app.delete('/api/routes/delete/:id', deleteRoute)
 app.put('/api/routes/add', updateFullRoute)
 
 app.listen(port, () => console.log(`Listening on port ${port}`))

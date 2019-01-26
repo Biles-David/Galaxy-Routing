@@ -17,11 +17,7 @@ const LOGOUT = 'LOGOUT';
 // Initial State
 const initialState = {
   users: [],
-  user: {
-    // name: 'Eddie Johnson',
-    // img: 'https://firebasestorage.googleapis.com/v0/b/galaxy-routing.appspot.com/o/images%2FIMG_0313.JPG?alt=media&token=bcca0f8c-eb9d-462c-8c4d-90f8fab3e08b',
-    // admin: true
-  },
+  user: {},
   error: ''
   // name: '',
   // employee_number: 0,
@@ -64,7 +60,7 @@ export function getSession() {
 export function logout() {
   return {
     type: LOGOUT,
-    payload: axios('/users/logout')
+    payload: axios.post('/users/logout')
   }
 }
 

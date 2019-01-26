@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { storage } from '../../firebase/index'
 import { connect } from 'react-redux';
 import { addUser } from '../../ducks/reducers/userReducer';
@@ -51,7 +52,7 @@ class Register extends Component {
   }
 
   handleSubmit = () => {
-    const { name, email, url, password, passwordCheck } = this.state;
+    const { first_name, last_name, email, url, password, passwordCheck } = this.state;
     if (password !== passwordCheck) {
       window.alert("Passwords don't match")
       return (
@@ -74,8 +75,9 @@ class Register extends Component {
           }
         );
       }
+      const name = `${first_name} ${last_name}`
       const user = { name, email, img: url || null, password }
-      this.props.addUser(user).then( response => {
+      this.props.addUser(user).then(response => {
         // this.setState({user: response.value.data})
       })
     }
@@ -84,26 +86,31 @@ class Register extends Component {
   render() {
     const fakeImg = 'https://www.awwu.biz/Home/ShowPublishedImage/743/636705502595800000'
     return (
-      <div className='registerBody'>
-        <div className='registerDiv'>
-          <h1>Register</h1>
-          <div className='imgDiv'>
-            <img className='registerImg' src={this.state.url || fakeImg} alt='Profile' />
-            <input type='file' onChange={this.handleImageChange} className='fileUpload' />
-            <p className='addPhoto'> {this.state.url ? 'Click to change' : 'Click to add Photo'} </p>
-          </div>
-          {/* <button onClick={() => this.handleUpload()}>Upload</button> */}
-          <div className='register_inputDiv'>
-            <div className='registerName'>
-              <input name='first_name' type='text' placeholder='First Name' onChange={this.handleChange}></input>
-              <input name='last_name' type='text' placeholder='Last Name' onChange={this.handleChange}></input>
+      <div className='homeDiv'>
+        <h1 className='loginTitle'> Galaxy Routing </h1>
+        <div className='registerBody'>
+          <div className='registerDiv'>
+            <h1>Register</h1>
+            <div className='imgDiv'>
+              <img className='registerImg' src={this.state.url || fakeImg} alt='Profile' />
+              <input type='file' onChange={this.handleImageChange} className='fileUpload' />
+              <p className='addPhoto'> {this.state.url ? 'Click to change' : 'Click to add Photo'} </p>
             </div>
-            <input name='email' type='text' placeholder='E-mail' onChange={this.handleChange}></input>
-            <input name='password' type='password' placeholder='Password' onChange={this.handleChange}></input>
-            <input name='passwordCheck' type='password' placeholder='Confirm Password' onChange={this.handleChange}></input>
+            {/* <button onClick={() => this.handleUpload()}>Upload</button> */}
+            <div className='register_inputDiv'>
+              <div className='registerName'>
+                <input name='first_name' type='text' placeholder='First Name' onChange={this.handleChange}></input>
+                <input name='last_name' type='text' placeholder='Last Name' onChange={this.handleChange}></input>
+              </div>
+              <input name='email' type='text' placeholder='E-mail' onChange={this.handleChange}></input>
+              <input name='password' type='password' placeholder='Password' onChange={this.handleChange}></input>
+              <input name='passwordCheck' type='password' placeholder='Confirm Password' onChange={this.handleChange}></input>
+            </div>
+            <div className='registerBtnMain'>
+              <Link to='/'> <button className='registerBtn' >Cancel</button> </Link>
+              <button className='registerBtn' onClick={() => this.handleSubmit()}>Submit!</button>
+            </div>
           </div>
-          <button onClick={() => this.props.handleClick()}>Cancel</button>
-          <button onClick={() => this.handleSubmit()}>Submit!</button>
         </div>
       </div>
     )

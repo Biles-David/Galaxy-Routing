@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Reorder, { reorder } from 'react-reorder';
 import ParticlesEffect from '../ParticlesEffect/ParticlesEffect';
 import Navbar from '../Navbar/Navbar';
 import Map from '../Map/Map';
-import axios from 'axios';
 import './Routing.css';
-
-import Reorder, {
-  reorder,
-  reorderImmutable,
-  reorderFromTo,
-  reorderFromToImmutable
-} from 'react-reorder';
-
-// import { reorder, reorderImmutable, reorderFromTo, reorderFromToImmutable } from 'react-reorder';
-
 
 class Routing extends Component {
   constructor(props) {
@@ -26,7 +16,8 @@ class Routing extends Component {
       reasons: '',
       route: [],
       isLoaded: false,
-      update: false
+      update: false,
+      edit: false
     }
   }
 
@@ -36,8 +27,25 @@ class Routing extends Component {
     })
   }
 
-  componentWillUnmount(){
+  clearArray = (route) => {
+    for (let i = 0; i < route.length; i++) {
+      delete route[i].lat
+      delete route[i].lng
+      route[i].route_order = i + 1
+    }
+    return route
+  }
 
+  cleanRoute = async () => {
+    let { route_id } = this.state.route[0]
+    let del = await axios.delete(`/api/routes/delete/${route_id}`)
+    let fullRoute = this.clearArray(this.state.route)
+    let body = { route: fullRoute }
+    let add = await axios.put('/api/routes/add', body)
+  }
+
+  handleDoubleClick = () => {
+    this.setState({edit:true})
   }
 
   handleChange = (e) => {
@@ -70,33 +78,12 @@ class Routing extends Component {
       this.setState({ route: [...this.state.route, newRoute], canAdd: false })
     }
   }
-  ////////////////////////////
-  onReorder = (event, previousIndex, nextIndex, fromId, toId) => {
+
+  onReorder = (event, previousIndex, nextIndex) => {
     this.setState({
       route: reorder(this.state.route, previousIndex, nextIndex)
     });
   }
-
-  onReorderGroup = (event, previousIndex, nextIndex, fromId, toId) => {
-    if (fromId === toId) {
-      const list = reorderImmutable(this.state[fromId], previousIndex, nextIndex);
-
-      this.setState({
-        [fromId]: list
-      });
-    } else {
-      const lists = reorderFromToImmutable({
-        from: this.state[fromId],
-        to: this.state[toId]
-      }, previousIndex, nextIndex);
-
-      this.setState({
-        [fromId]: lists.from,
-        [toId]: lists.to
-      });
-    }
-  }
-
 
   render() {
     let routeMap = [];
@@ -107,18 +94,18 @@ class Routing extends Component {
         return (
           <div className='routeBody' key={route[i].location_id}>
             <h1 className='routeNumber'>{alphabet[i]}</h1>
-            <p>{route[i].reasons}</p>
+            <p onDoubleClick={() => this.handleDoubleClick()} className={!this.state.edit ? 'reasons' : 'hidden'}>{route[i].reasons}</p>
+            <input className={this.state.edit ? 'editReasons' : 'hidden'}></input>
             <h1 className='routeId'>{route[i].location_id}</h1>
             <div className='routeDrag'>
               <span></span>
               <span></span>
               <span></span>
             </div>
-            <button name={i} className='routeDelete' onClick={(e) => this.handleDelete(e)}>X</button>
+            <div name={i} className='routeDelete' onClick={(e) => this.handleDelete(e)}>X</div>
           </div>
         )
       })
-      // .toArray()
     }
     if (!this.state.isLoaded) {
       return (
@@ -129,12 +116,14 @@ class Routing extends Component {
     }
     return (
       <div className='routingMain'>
+        <h1 className='routingTitle'> Galaxy Routing </h1>
         <ParticlesEffect />
         <Navbar />
         <Link className='button' to='/admin/routing'><span>Back</span></Link>
         <main className='routingPath'>
           <h1 className='routingPathTitle' >{`Route`}</h1>
           <button className='addBtn' onClick={() => this.setState({ canAdd: !this.state.canAdd })}>{this.state.canAdd ? 'Cancel' : 'Add'}</button>
+          <button className='saveBtn' onClick={this.cleanRoute}>Save</button>
           <div className='routeList'>
             <Reorder reorderId="my-list" lock="horizontal" onReorder={this.onReorder}>
               {routeMap}

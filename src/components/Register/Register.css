@@ -1,12 +1,22 @@
 .registerBody {
   position: absolute;
   padding: 5%;
-  top: 10%;
-  right: 40%;
+  top: 15%;
+  right: 38%;
   height: 60%;
   width: 15vw;
-  background: #ffffff70;
+  background: #ffffff90;
   border-radius: 5%;
+  animation: fade-in 0.3s;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0
+  }
+  100%{
+    opacity: 1
+  }
 }
 
 .registerDiv {
@@ -38,6 +48,7 @@
 
 .addPhoto {
   display: flex;
+  font-size: 0.7em;
   position: absolute;
   justify-content: center;
   align-items: center;
@@ -88,13 +99,25 @@ input.fileUpload {
   outline: none;
 }
 
-.registerDiv button {
-  width: 40%;
-  margin: 1%;
-  cursor: pointer;
-}
-
 .registerName {
   display: flex;
   width: 80%;
+}
+
+.registerBtnMain {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.registerBtn {
+  background: #dfdfdf;
+  height: 20px;
+  width: 70px;
+  outline: none;
+  border-radius: 2px;
+}
+
+.registerBtn:active {
+  background: #d1d1d1c5;
 }

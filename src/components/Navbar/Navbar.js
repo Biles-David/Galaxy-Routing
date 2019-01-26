@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logout } from '../../ducks/reducers/userReducer';
 import { getSession } from '../../ducks/reducers/userReducer';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Swal from 'sweetalert2/dist/sweetalert2.all.min.js'
 import './Navbar.css'
 
@@ -11,13 +11,18 @@ constructor(props){
   super(props)
   this.state = {
     user: {},
-    showTab: false
+    showTab: false,
+    redirect: false
   }
 }
 
   async componentDidMount(){
     const response = await this.props.getSession()
     this.setState({user: response.value.data})
+  }
+
+  resetRedirect = () => {
+    this.setState({redirect:false})
   }
 
   handleClick() {
@@ -38,17 +43,21 @@ constructor(props){
           showConfirmButton: false
         }).then(() => {
           this.props.logout()
-          return <Redirect to='/'/>
-        }
-        )
+          this.setState({user: {}, redirect: true, showTab: false})
+        })
       }
     })
   }
 
   render(){
-
+    if(this.state.redirect){
+      this.resetRedirect()
+      return (
+        <Redirect to='/'/>
+      )
+    }
     return (
-      <div className={ this.props.user ? 'navbarMain' : 'hidden'}>
+      <div className={ this.props.user.name ? 'navbarMain' : 'hidden'}>
       <div className='userDisplay'>
         <div className='navbarMenuBox' onClick={() => this.setState({showTab: !this.state.showTab})}>
           <div className='navbarMenu'>
@@ -69,6 +78,7 @@ constructor(props){
         <h5 className='navbarName'>{this.props.user.name}</h5>
         <img className='navbarImg' src={this.props.user.img} />
       </div>
+      
     </div>
     )
   }

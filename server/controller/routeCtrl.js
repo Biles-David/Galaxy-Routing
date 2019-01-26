@@ -22,8 +22,8 @@ function addToRoute (req, res) {
 
 function deleteRoute(req, res) {
   const db = req.app.get('db');
-  db.delete_route(req.body.route_id)
-  .then(response => res.sendStatus(200))
+  db.delete_route(req.params.id)
+  .then(response => console.log(response) || res.status(200).json(response))
   .catch(err => console.log(err))
 }
 

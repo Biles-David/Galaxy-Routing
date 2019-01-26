@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { compose, withProps } from "recompose";
 import { Marker, withScriptjs, withGoogleMap, GoogleMap, } from 'react-google-maps';
-import api_key from '../../frontEndSecrets'
+import { GOOGLE_API_KEY } from '../../frontEndSecrets'
 import { connect } from 'react-redux';
 import './UserMap.css';
 const google = window.google;
 
 const DirectionsMap = compose(
   withProps({
-    googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${api_key}&libraries=geometry,drawing,places`,
+    googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&libraries=geometry,drawing,places`,
     loadingElement: <div className='loadingUserElement' />,
     containerElement: <div className='containerUserElement' />,
     mapElement: <div className='mapUserElement' />,

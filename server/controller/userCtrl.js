@@ -63,6 +63,7 @@ function sessionCheck ( req, res ) {
 
 async function logout ( req, res ) {
   req.session.destroy();
+  console.log(req.session)
   return res.sendStatus(200)
 }
 

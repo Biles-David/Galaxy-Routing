@@ -2,16 +2,48 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 5%;
+  padding: 4%;
   align-items: center;
   position: absolute;
-  top: 15%;
+  top: 20%;
   right: 40%;
-  height: 30%;
-  width: 11vw;
-  background: #ffffff70;
+  height: 35%;
+  width: 14vw;
+  background: #ffffff90;
   border-radius: 5%;
   border: 1px solid black;
+  animation: fade-in 0.3s
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0
+  }
+  100%{
+    opacity: 1
+  }
+}
+
+.loginTitle {
+  margin: 0vh auto;
+  color: white;
+  font-family: 'Jim Nightshade', cursive;;
+  font-size: 6em;
+  font-weight: bold;
+  border: none;
+  text-shadow: 5px 4px 3px #969696;
+  animation: move-title 0.3s
+}
+
+@keyframes move-title {
+  0% {
+    margin: 9vh auto;
+    font-size: 9em
+  }
+  100% {
+    margin: 0 auto;
+    font-size: 6em;
+  }
 }
 
 h1 {
@@ -24,7 +56,8 @@ h1 {
 .inputDiv {
   display: flex;
   flex-direction: column;
-  width: 150%;
+  width: 140%;
+  height: 200px;
 }
 
 input {
@@ -36,11 +69,6 @@ input {
   font-size: 1.5em;
   font-family: 'Playfair Display', serif;
   outline: none;
-}
-
-button {
-  width: 40%;
-  cursor: pointer;
 }
 
 .hidden {
@@ -63,4 +91,24 @@ button {
   color: red;
   font-size: .5em;
   bottom: 0;
+}
+
+.loginBtnMain {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10px;
+  width: 150%;
+  height: 13%;
+}
+
+.loginBtn {
+  background: #dfdfdf;
+  height: 20px;
+  width: 70px;
+  outline: none;
+  border-radius: 2px;
+}
+
+.loginBtn:active {
+  background: #d1d1d1c5;
 }

@@ -26,7 +26,6 @@
 }
 
 .routeList {
-  /* background: blue; */
   height: 85%;
   width: 100%;
   overflow: scroll;
@@ -34,18 +33,31 @@
 
 .routingPathTitle {
   border-bottom: 2px solid black;
+  width: 60%;
 }
 
-.routeBody p {
+.reasons {
   width: 50%;
   text-align: center;
   flex-wrap: wrap;
   align-self: center;
+  border: none;
+}
+
+.editReasons {
+  width: 40%;
+  text-align: center;
+  flex-wrap: wrap;
+  align-self: center;
+
 }
 
 .routeNumber {
   width: 5%;
   border: none;
+  /* color: #858B95;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; */
+  color: black;
 }
 
 .routeId {
@@ -65,21 +77,48 @@
 }
 
 .routeDelete {
+  display: flex;
+  justify-content: center;
   width: 20px;
   height: 20px;
   border-radius: 50px;
   align-self: center;
+  /* justify-content: center; */
   cursor: pointer;
   padding: 0;
+  border: 1px solid black;
   /* background:white;
   text-align: center; */
 }
 
-.addBtn {
+.addBtn, .saveBtn {
+  display: flex;
+  justify-content: center;
   position: relative;
+  background: none;
+  border: 2px solid black;
+  font-size: 1em;
+  outline: none;
+  width: 65px;
+}
+
+.addBtn {
   left: 40%;
-  width: 10%;
   bottom: 7vh;
+}
+
+.saveBtn {
+  right: 40%;
+  bottom: 10vh;
+}
+
+.addBtn:hover, .saveBtn:hover{
+  background: #737881;
+  cursor: pointer;
+}
+
+.addBtn:active, .saveBtn:active {
+  transform: translateX(.5px) translateY(.5px)
 }
 
 .hidden {
@@ -174,4 +213,17 @@
   margin: 7vh;
   padding: 10px;
   border: 1px solid black;
+}
+
+.routingTitle {
+  position: absolute;
+  width: 100vw;
+  margin: 0vh auto;
+  color: white;
+  font-family: 'Jim Nightshade', cursive;;
+  font-size: 4em;
+  font-weight: bold;
+  border: none;
+  text-shadow: 3px 3px 3px #969696;
+  z-index: 5;
 }
