@@ -32,10 +32,19 @@ function updateFullRoute(req, res) {
   db.routes.insert(req.body.route, function(err, res){});
 }
 
+function newRoute(req, res) {
+  const db = req.app.get('db');
+  const { route_id, route_name, location_id, user_id, reasons, route_order } = req.body
+  db.new_route(route_id, route_name, location_id, user_id, reasons, route_order)
+  .then(response => res.status(200).json(response))
+  .catch(err => console.log(err))
+}
+
 module.exports = {
   getRouteByRouteId,
   getRoutes,
   addToRoute,
   deleteRoute,
-  updateFullRoute
+  updateFullRoute,
+  newRoute
 }

@@ -45,6 +45,8 @@ constructor(props){
           this.props.logout()
           this.setState({user: {}, redirect: true, showTab: false})
         })
+      } else {
+        this.setState({showTab: false})
       }
     })
   }

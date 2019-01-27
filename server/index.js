@@ -10,7 +10,7 @@ const port = SERVER_PORT
 // Controller Functions
 const { getUsers, register, login, sessionCheck, logout } = require('./controller/userCtrl');
 const { getLocations, addCoordinates, getLatLng } = require('./controller/locationCtrl');
-const { getRouteByRouteId, getRoutes, addToRoute, deleteRoute, updateFullRoute } = require('./controller/routeCtrl');
+const { getRouteByRouteId, getRoutes, addToRoute, deleteRoute, updateFullRoute, newRoute } = require('./controller/routeCtrl');
 const { usersOnly, adminsOnly } = require('./middleware/authMiddleware');
 
 const app = express()
@@ -47,5 +47,6 @@ app.get('/api/routes', getRoutes)
 app.post('/api/routes/:id/add', addToRoute)
 app.delete('/api/routes/delete/:id', deleteRoute)
 app.put('/api/routes/add', updateFullRoute)
+app.put('/api/routes/new/route', newRoute)
 
 app.listen(port, () => console.log(`Listening on port ${port}`))

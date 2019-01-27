@@ -1,0 +1,82 @@
+.addRouteDiv, .hide {
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  height: 30vh;
+  width: 50vw;
+  animation: drop-down .4s linear;
+  z-index: 999;
+  background: #cacacaf9;
+  border-radius: 10px;
+  border: 2px solid #a5a5a5d5;
+}
+
+@keyFrames drop-down {
+  0% {
+    transform: translateY(-1000px)
+  }
+  100% {
+    transform: translateY(0)
+  }
+}
+
+.hide {
+  display: none;
+  position: absolute;
+  top: -800px;
+  animation: drop-up .6s linear;
+}
+
+@keyFrames drop-up {
+  0% {
+    top: 30%;
+    transform: translateY(0)
+  }
+  100% {
+    transform: translateY(-1000px)
+  }
+}
+
+.addRouteDiv h1 {
+  margin: 1vh auto 5vh auto;
+}
+
+.addRouteInput {
+  display: flex;
+  align-content: center;
+  justify-content: space-evenly;
+}
+
+.addRouteInput input {
+  width: 60%;
+  background:#fcfcfcb7;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.addRouteNames {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+}
+
+.submitBtn {
+  position:relative;
+  right: -47%;
+  background: none;
+  height: 25px;
+  width: 70px;
+  color: black;
+  border: 1px solid black;
+  cursor: pointer;
+  outline: none;
+}
+
+.submitBtn:hover {
+  background: #929292;
+}
+
+.submitBtn:active {
+  transform: translateX(.5px) translateY(1px)
+}

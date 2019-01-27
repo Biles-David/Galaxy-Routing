@@ -17,10 +17,20 @@
   border-color: white;
 }
 
-.sidebarList {
+.sidebarLink {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  text-decoration: none;
+  align-content: center;
+  color: white;
+  margin: 10px;
+  font-size: 1.25em;
+}
+
+.sidebarIcon {
+  margin-right: 10px;
+  height: 35px;
+  width: auto;
+  align-self: center;
 }
 
 .sidebarLink:hover {

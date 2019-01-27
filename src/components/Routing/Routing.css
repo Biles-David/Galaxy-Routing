@@ -19,13 +19,13 @@
   /* overflow: scroll; */
 }
 
-.routeBody {
+.routingBody {
   display: flex;
   width: 100%;
   justify-content: space-between;
 }
 
-.routeList {
+.routingList {
   height: 85%;
   width: 100%;
   overflow: scroll;
@@ -52,7 +52,7 @@
 
 }
 
-.routeNumber {
+.routingNumber {
   width: 5%;
   border: none;
   /* color: #858B95;
@@ -131,14 +131,14 @@
   align-items: center;
 }
 
-.routeDrag {
+.routingDrag {
   display: flex;
   flex-direction: column;
   justify-content: center;
   cursor: pointer;
 }
 
-.routeDrag span {
+.routingDrag span {
   height: 2px;
   width: 20px;
   background: black;
@@ -179,6 +179,7 @@
   margin-left: 2vw;
   height: 20px;
   z-index: 9;
+  outline: none;
 }
 
 .button span {

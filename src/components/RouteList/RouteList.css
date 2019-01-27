@@ -9,7 +9,6 @@
 }
 
 .routelistMain {
-  /* background: #263042; */
   position: absolute;
   height: 100vh;
   width: 100vw;
@@ -18,13 +17,15 @@
 .routeDiv {
   display: flex;
   justify-content: space-evenly;
-  background: #c5c5c5;
+  background: #cacacac0;
   width: 70vw;
   color: black;
-  border: 1px solid white;
+  border: 2px solid #ffffffd5;
+  border-radius: 5px;
   outline: none;
   text-decoration: none;
   margin: 1vh;
+  padding-right: 6%;
 }
 
 .routeDiv h1 {
@@ -56,4 +57,47 @@
   font-family: 'Jim Nightshade', cursive;;
   font-size: 5em;
   font-weight: bold;
+  text-shadow: 3px 3px 3px #969696;
+}
+
+.routeList {
+  display: flex;
+  height: 18vh;
+}
+
+.addRoute {
+  position: relative;
+  right: -85%;
+  top: -5%;
+  color: white;
+  border: 2px solid white;
+}
+
+.deleteRoute {
+  position: relative;
+  right: 9%;
+  margin-top: auto;
+  margin-bottom: auto;
+  color: white;
+  border: 2px solid white;
+  z-index: 90;
+}
+
+.addRoute, .deleteRoute {
+  display: flex;
+  justify-content: center;
+  background: none;
+  font-size: 1em;
+  outline: none;
+  width: 110px;
+  height: 40px;
+}
+
+.addRoute:hover, .deleteRoute:hover {
+  background: #737881;
+  cursor: pointer;
+}
+
+.addRoute:active, .deleteRoute:active {
+  transform: translateX(.5px) translateY(.5px)
 }

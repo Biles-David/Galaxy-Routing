@@ -1,61 +1,19 @@
 import React, { Component } from 'react';
-import Swal from 'sweetalert2/dist/sweetalert2.all.min.js'
-import { Redirect, context } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { logout } from '../../ducks/reducers/userReducer';
-import Logout from '../Logout/Logout';
 import './Sidebar.css';
 
-// const Sidebar = props => {
-//   return (
-//     <div className='sidebarMain'>
-//       <h1>Menu</h1>
-//       <div className='sidebarList'>
-//         <Logout className='sidebarLink'/>
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default Sidebar;
-
 class Sidebar extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      logout: false
-    }
-  }
-
-  handleClick() {
-    Swal.fire({
-      title: 'Are you sure you want to Logout?',
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Logout'
-    }).then((result) => {
-      if (result.value) {
-        Swal.fire({
-          title: 'Goodbye!',
-          text: 'You have been successfully logged out.',
-          type: 'success',
-          timer: 1000,
-          showConfirmButton: false
-        }).then(() => {
-          this.props.logout()
-        }
-        )
-      }
-    })
-  }
 
   render() {
     return (
       <div className='sidebarMain'>
         <h1>Menu</h1>
-        {/* <button onClick={() => this.handleClick()}>Click Me!</button> */}
+        <div className='sidebarBody'>
+          <Link className={this.props.location.pathname.includes('/user') ? 'hidden' : 'sidebarLink'} to={`/user/${this.props.user.user.id}`}> <img className='sidebarIcon' src='/icons/file.png' alt='test' /> <p>Switch to User</p> </Link>
+          {this.props.user.user.admin && <Link className={this.props.location.pathname === '/admin/routing' ? 'hidden' : 'sidebarLink'} to={`/admin/routing`}> <img className='sidebarIcon' src='/icons/network.png' alt='test' /> <p>Switch to Admin</p> </Link>}
+        </div>
       </div>
     );
   }
@@ -63,4 +21,4 @@ class Sidebar extends Component {
 
 const mapStateToProps = state => state
 
-export default connect(mapStateToProps, { logout })(Sidebar);
+export default connect(mapStateToProps, { logout })(withRouter(Sidebar));

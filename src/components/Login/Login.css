@@ -76,11 +76,11 @@ input {
 }
 
 .hiddenEye {
-  position: absolute;
-  left: 78%;
-  top: 60%;
-  height: 4%;
-  width: 7%;
+  position: relative;
+  left: 85%;
+  top: -22%;
+  height: 10%;
+  width: 8%;
   opacity: .5;
   z-index: 100;
   cursor: pointer;

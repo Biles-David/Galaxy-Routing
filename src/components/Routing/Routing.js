@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import Swal from 'sweetalert2/dist/sweetalert2.all.min.js'
 import Reorder, { reorder } from 'react-reorder';
 import ParticlesEffect from '../ParticlesEffect/ParticlesEffect';
 import Navbar from '../Navbar/Navbar';
@@ -15,19 +16,24 @@ class Routing extends Component {
       location_id: '',
       reasons: '',
       route: [],
+      startRoute: [],
       isLoaded: false,
       update: false,
-      edit: false
+      edit: false,
+      redirect: false
     }
   }
 
+  // Grabs Routes from Database 
   componentDidMount() {
     axios.post(`/api/routes/${this.props.match.params.id}`).then(response => {
-      this.setState({ route: response.data, isLoaded: true })
+      this.setState({ route: response.data, startRoute: response.data, isLoaded: true })
     })
   }
 
+  // removes unwanted items from array getting ready to replace database info
   clearArray = (route) => {
+    this.setState({startRoute: this.state.route})
     for (let i = 0; i < route.length; i++) {
       delete route[i].lat
       delete route[i].lng
@@ -42,6 +48,17 @@ class Routing extends Component {
     let fullRoute = this.clearArray(this.state.route)
     let body = { route: fullRoute }
     let add = await axios.put('/api/routes/add', body)
+  }
+
+  handleSave = () => {
+    this.cleanRoute()
+    Swal.fire({
+      position: 'top-end',
+      type: 'success',
+      title: 'Your work has been saved',
+      showConfirmButton: false,
+      timer: 1000
+    })
   }
 
   handleDoubleClick = () => {
@@ -85,6 +102,35 @@ class Routing extends Component {
     });
   }
 
+  handleSwal = () => {
+    const { route, startRoute} = this.state 
+    if(startRoute !== route){
+        Swal.fire({
+          title: 'You have made changes',
+          text: 'Do you want to save before exiting?',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes',
+          cancelButtonText: "No, I don't"
+        }).then((result) => {
+          if ( result.dismiss === Swal.DismissReason.cancel) {
+            Swal.fire({
+              title: 'No changes were made',
+              type: 'error',
+              timer: 1000,
+              showConfirmButton: false
+            }).then(() => {
+              this.setState({redirect: true})
+            })          
+          }
+        })
+    } else {
+      this.setState({redirect: true})
+    }
+  }
+
   render() {
     let routeMap = [];
     if (this.state.isLoaded) {
@@ -92,12 +138,12 @@ class Routing extends Component {
       routeMap = route.map((e, i) => {
         const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
         return (
-          <div className='routeBody' key={route[i].location_id}>
-            <h1 className='routeNumber'>{alphabet[i]}</h1>
+          <div className='routingBody' key={route[i].location_id}>
+            <h1 className='routingNumber'>{alphabet[i]}</h1>
             <p onDoubleClick={() => this.handleDoubleClick()} className={!this.state.edit ? 'reasons' : 'hidden'}>{route[i].reasons}</p>
             <input className={this.state.edit ? 'editReasons' : 'hidden'}></input>
             <h1 className='routeId'>{route[i].location_id}</h1>
-            <div className='routeDrag'>
+            <div className='routingDrag'>
               <span></span>
               <span></span>
               <span></span>
@@ -114,17 +160,25 @@ class Routing extends Component {
         </div>
       )
     }
+    if(this.state.redirect){
+      let reset = () => {this.setState({redirect:false})}
+      reset()
+      return (
+        <Redirect to='/admin/routing'/>
+      )
+    }
     return (
       <div className='routingMain'>
         <h1 className='routingTitle'> Galaxy Routing </h1>
         <ParticlesEffect />
         <Navbar />
-        <Link className='button' to='/admin/routing'><span>Back</span></Link>
+        {/* <Link className='button' to='/admin/routing'><span>Back</span></Link> */}
+        <button className='button' onClick={() => console.log('hit') || this.handleSwal()}><span>Back</span></button>
         <main className='routingPath'>
           <h1 className='routingPathTitle' >{`Route`}</h1>
           <button className='addBtn' onClick={() => this.setState({ canAdd: !this.state.canAdd })}>{this.state.canAdd ? 'Cancel' : 'Add'}</button>
-          <button className='saveBtn' onClick={this.cleanRoute}>Save</button>
-          <div className='routeList'>
+          <button className='saveBtn' onClick={this.handleSave}>Save</button>
+          <div className='routingList'>
             <Reorder reorderId="my-list" lock="horizontal" onReorder={this.onReorder}>
               {routeMap}
             </Reorder>
