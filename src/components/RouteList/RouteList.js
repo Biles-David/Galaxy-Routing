@@ -58,7 +58,6 @@ class RouteList extends Component {
   }
 
   render() {
-    console.log(this.props.allRoutes)
     const { allRoutes, isLoaded } = this.props
     let routes = []
     if (isLoaded) {
@@ -104,7 +103,7 @@ class RouteList extends Component {
         <main className='routesMain'>
           {routes}
         </main>
-        <AddRoute getRoute={this.getRoute()} routeLength={this.props.allRoutes.length +1} handleAdd={this.handleAdd} addRoute={this.state.addRoute}/>
+        <AddRoute getRoute={this.getRoute} routeLength={this.props.allRoutes.length +1} handleAdd={this.handleAdd} addRoute={this.state.addRoute}/>
       </div >
     );
   }

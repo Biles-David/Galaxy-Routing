@@ -24,7 +24,6 @@ class AddRoute extends Component {
   }
 
   render(){
-    console.log(this.props.routeLength)
     return(
       <div className={this.props.addRoute ? 'addRouteDiv' : 'hide'}>
         <h1> Add a Route </h1>

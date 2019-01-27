@@ -6,12 +6,14 @@ const GET_ROUTES = 'GET_ROUTES';
 const GET_LOCATIONS = 'GET_LOCATIONS';
 const ADD_TO_ROUTE = 'ADD_TO_ROUTE';
 const CLEAR_ROUTE = 'CLEAR_ROUTE';
+const USER_ROUTE = 'USER_ROUTE';
 
 // Initial State
 const initialState = {
   locations: [],
   allRoutes: [],
   route: [],
+  userRoute: [],
   isLoaded: false,
   routesLoaded: false
 }
@@ -52,6 +54,13 @@ export function clearRoute (){
   }
 }
 
+export function userRoute (id){
+  return {
+    type: USER_ROUTE,
+    payload: axios(`/api/locations/${id}`)
+  }
+}
+
 // Reducer
 export default function ( state=initialState, action){
   switch(action.type){
@@ -83,7 +92,15 @@ export default function ( state=initialState, action){
         route: [],
         isLoaded: false
       }
-    default:
+    case `${USER_ROUTE}_FULFILLED`:
+      return {
+        ...state,
+        userRoute: action.payload.data,
+        isLoaded: true
+      }
+      case `${USER_ROUTE}_REJECTED`:
+        return console.log('Could not get Route')
+      default:
       return state
   }
 }

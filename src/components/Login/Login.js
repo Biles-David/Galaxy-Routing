@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { loginUser } from '../../ducks/reducers/userReducer';
 import './Login.css';
 
@@ -27,8 +27,7 @@ class Login extends Component {
 
   handleLogin = async (user) => {
     const result = await this.props.loginUser(user)
-    console.log(result)
-    if(result.value.data.admin == true){
+    if(result.value.data.admin === true){
       return this.props.history.push('/admin/routing')
     } else {
       return this.props.history.push(`/user/${result.value.data.id}`)

@@ -26,10 +26,18 @@ function getLatLng (req, res) {
   .catch(err => console.log(err))
 }
 
+function getRouteForUser(req, res){
+  const db = req.app.get('db');
+  db.get_route_for_user(req.params.id)
+  .then(response => res.status(200).json(response))
+  .catch(err => console.log(err))
+}
+
 
 module.exports = {
   getLocations,
   addCoordinates,
   getOneLocation,
-  getLatLng
+  getLatLng,
+  getRouteForUser
 }

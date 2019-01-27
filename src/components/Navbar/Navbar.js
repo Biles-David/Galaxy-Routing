@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logout } from '../../ducks/reducers/userReducer';
 import { getSession } from '../../ducks/reducers/userReducer';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Swal from 'sweetalert2/dist/sweetalert2.all.min.js'
 import './Navbar.css'
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { compose, withProps } from "recompose";
 import { Marker, withScriptjs, withGoogleMap, GoogleMap, } from 'react-google-maps';
 import { GOOGLE_API_KEY } from '../../frontEndSecrets'
-import { connect } from 'react-redux';
 import './UserMap.css';
 const google = window.google;
 
@@ -16,39 +15,20 @@ const DirectionsMap = compose(
   withScriptjs,
   withGoogleMap
 )(props => {
-  let position = props.route[props.count]
-  let location = !position ? {lat: 0, lng: 0} : {lat: +position.lat, lng: +position.lng}
   return (
-    <GoogleMap
-      defaultZoom={9}
-      defaultCenter={new google.maps.LatLng(location)}
-    >
-    <Marker position={new google.maps.LatLng(location)}/>
+    <GoogleMap defaultZoom={9} center={new google.maps.LatLng(props.location)}>
+      <Marker position={new google.maps.LatLng(props.location)}/>
     </GoogleMap>
   )
 }
 );
 
-
-class Map extends Component {
-  constructor(){
-    super()
-    this.state = {
-      route: []
-    }
-  }
-
+class UserMap extends Component {
   render() { 
     return ( 
-      <DirectionsMap count={this.props.count} route={this.state.route[0] ? this.state.route : this.props.route} />
+      <DirectionsMap location={this.props.location}/>
       );
     }
   }
-  
-  const mapStateToProps = state => {
-    return {
-      route: state.route.route.data
-    }
-  }
-  
-export default connect(mapStateToProps, {})(Map);
+
+export default UserMap;

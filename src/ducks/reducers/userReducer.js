@@ -147,7 +147,7 @@ export default function (state = initialState, action) {
     case `${GET_SESSION}_FULFILLED`:
       return {
         ...state,
-        user: console.log('action.payload.data: ', action.payload.data) || action.payload.data
+        user: action.payload.data
       }
     case `${GET_SESSION}_REJECTED`:
       return {

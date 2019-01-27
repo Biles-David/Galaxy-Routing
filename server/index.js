@@ -9,7 +9,7 @@ const port = SERVER_PORT
 
 // Controller Functions
 const { getUsers, register, login, sessionCheck, logout } = require('./controller/userCtrl');
-const { getLocations, addCoordinates, getLatLng } = require('./controller/locationCtrl');
+const { getLocations, addCoordinates, getLatLng, getRouteForUser } = require('./controller/locationCtrl');
 const { getRouteByRouteId, getRoutes, addToRoute, deleteRoute, updateFullRoute, newRoute } = require('./controller/routeCtrl');
 const { usersOnly, adminsOnly } = require('./middleware/authMiddleware');
 
@@ -40,13 +40,14 @@ app.post('/users/logout', logout);
 app.get('/api/locations', getLocations);
 app.post('/api/locations/coordinates', addCoordinates);
 app.post('/api/locations/exact', getLatLng);
+app.get('/api/locations/:id', getRouteForUser);
 
 //Route Endpoints
-app.post('/api/routes/:id', getRouteByRouteId)
-app.get('/api/routes', getRoutes)
-app.post('/api/routes/:id/add', addToRoute)
-app.delete('/api/routes/delete/:id', deleteRoute)
-app.put('/api/routes/add', updateFullRoute)
-app.put('/api/routes/new/route', newRoute)
+app.post('/api/routes/:id', getRouteByRouteId);
+app.get('/api/routes', getRoutes);
+app.post('/api/routes/:id/add', addToRoute);
+app.delete('/api/routes/delete/:id', deleteRoute);
+app.put('/api/routes/add', updateFullRoute);
+app.put('/api/routes/new/route', newRoute);
 
 app.listen(port, () => console.log(`Listening on port ${port}`))
