@@ -84,7 +84,7 @@ class Register extends Component {
   }
 
   render() {
-    const fakeImg = 'https://www.awwu.biz/Home/ShowPublishedImage/743/636705502595800000'
+    const fakeImg = '/images/fake-image.png'
     return (
       <div className='homeDiv'>
         <h1 className='loginTitle'> Galaxy Routing </h1>
@@ -96,7 +96,6 @@ class Register extends Component {
               <input type='file' onChange={this.handleImageChange} className='fileUpload' />
               <p className='addPhoto'> {this.state.url ? 'Click to change' : 'Click to add Photo'} </p>
             </div>
-            {/* <button onClick={() => this.handleUpload()}>Upload</button> */}
             <div className='register_inputDiv'>
               <div className='registerName'>
                 <input name='first_name' type='text' placeholder='First Name' onChange={this.handleChange}></input>

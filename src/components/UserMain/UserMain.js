@@ -10,7 +10,7 @@ class UserMain extends Component {
   constructor() {
     super()
     this.state = {
-      count: 0,
+      count: 0
     }
   }
 
@@ -19,7 +19,7 @@ class UserMain extends Component {
   }
 
   handleClick = () => {
-    this.setState({count: this.state.count + 1})
+    this.setState({ count: this.state.count + 1 })
   }
 
   render() {
@@ -41,50 +41,55 @@ class UserMain extends Component {
         <div className='userMainBody'>
           <Sidebar />
           <ParticlesEffect />
+          <h2 className='userMain_title'>Galaxy Routing</h2>
           <div className='userMain'>
             <div className='info_empty_container'>
               {time}
               <h1>The Black Hole ate your Route.</h1>
               <p> You do not currently have a route.</p>
-              <img src='/black-hole.jpg' alt='nothing' className='info_empty_container_img' />
+              <img src='/images/black-hole.jpg' alt='nothing' className='info_empty_container_img' />
             </div>
           </div>
         </div>
       )
     }
-    if(!this.props.route[this.state.count]){
-      return(
+    if (!this.props.route[this.state.count]) {
+      return (
         <div className='userMainBody'>
-        <Sidebar />
-        <ParticlesEffect />
-        <div className='userMain'>
-          <div className='finished_container'>
-            <h1>There are no more stops.</h1>
-            <p>Ask your supervisor what to do next</p>
-            <img className='finished_img' src='/satellite.jpeg' alt='satellite'/>
+          <Sidebar />
+          <ParticlesEffect />
+          <h2 className='userMain_title'>Galaxy Routing</h2>
+          <div className='userMain'>
+            <div className='finished_container'>
+              <h1>There are no more stops.</h1>
+              <p>Ask your supervisor what to do next</p>
+              <img className='finished_img' src='/images/satellite.jpeg' alt='satellite' />
+            </div>
           </div>
         </div>
-      </div>
       )
     }
-    let { address, city, state, zip, reasons, location_id, phone, lat, lng } = this.props.route[this.state.count]
+    let { route_name, address, city, state, zip, reasons, location_id, phone, lat, lng, user_id, user_name } = this.props.route[this.state.count]
     const fullAddress = `${address} ${city}, ${state}, ${zip}`
-    const aLink  = fullAddress.replace(/ /g, '+' )
+    const aLink = fullAddress.replace(/ /g, '+')
     return (
       <div className='userMainBody'>
         <Sidebar />
         <ParticlesEffect />
+        <h2 className='userMain_title'>Galaxy Routing</h2>
         <div className='userMain'>
           <div className='infoContainer'>
             <p className='info_container_top'>{time} <button className='complete_stop_Btn' onClick={() => this.handleClick()}>Complete Stop</button> </p>
             <div>
+              <p> Route: {route_name} </p>
+              <p> User: {user_id} {user_name}</p>
             </div>
-            <p>Notes: {reasons}</p>
+            <h1>Notes:</h1><p>{reasons}</p>
           </div>
           <div className='userMap-container'>
             <div className='userMap'>
               <a className='info_container_map_link' href={`https://www.google.com/maps/place/${aLink}`} rel="noopener noreferrer" target='_blank'>{fullAddress}</a>
-              <UserMap location={{lat: +lat, lng: +lng}} />
+              <UserMap location={{ lat: +lat, lng: +lng }} />
             </div>
           </div>
         </div>
