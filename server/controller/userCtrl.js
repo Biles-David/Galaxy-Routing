@@ -26,7 +26,8 @@ async function register(req, res) {
       name: `${user.first_name} ${user.last_name}`,
       img: user.img,
       admin: user.admin,
-      id: user.id
+      id: user.id,
+      position: 0
     };
   }
   return res.status(201).json(req.session.user)
@@ -49,7 +50,8 @@ async function login ( req, res ) {
         name: `${user.first_name} ${user.last_name}`,
         img: user.img,
         admin: user.admin,
-        id: user.id
+        id: user.id,
+        position: 0
       };
       res.status(200).json(req.session.user)
       // console.log('Session.user after log: ', req.session.user)
@@ -58,6 +60,11 @@ async function login ( req, res ) {
 }
 
 function sessionCheck ( req, res ) {
+  res.status(200).json(req.session.user)
+}
+
+function addPosition ( req, res ) {
+  req.session.user.position += 1
   res.status(200).json(req.session.user)
 }
 
@@ -72,5 +79,6 @@ module.exports = {
   register,
   login,
   sessionCheck,
-  logout
+  logout,
+  addPosition
 }

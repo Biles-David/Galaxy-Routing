@@ -8,9 +8,9 @@ const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
 const port = SERVER_PORT
 
 // Controller Functions
-const { getUsers, register, login, sessionCheck, logout } = require('./controller/userCtrl');
+const { getUsers, register, login, sessionCheck, logout, addPosition } = require('./controller/userCtrl');
 const { getLocations, addCoordinates, getLatLng, getRouteForUser } = require('./controller/locationCtrl');
-const { getRouteByRouteId, getRoutes, addToRoute, deleteRoute, updateFullRoute, newRoute } = require('./controller/routeCtrl');
+const { getRouteByRouteId, getRoutes, addToRoute, deleteRoute, updateFullRoute, newRoute, completeStop } = require('./controller/routeCtrl');
 const { usersOnly, adminsOnly } = require('./middleware/authMiddleware');
 
 const app = express()
@@ -35,6 +35,7 @@ app.post('/users/register', register);
 app.post('/users/login', login);
 app.get('/users/session', sessionCheck);
 app.post('/users/logout', logout);
+app.post('/users/sessionAdd', addPosition);
 
 //location Endpoints
 app.get('/api/locations', getLocations);
@@ -49,5 +50,6 @@ app.post('/api/routes/:id/add', addToRoute);
 app.delete('/api/routes/delete/:id', deleteRoute);
 app.put('/api/routes/add', updateFullRoute);
 app.put('/api/routes/new/route', newRoute);
+app.put('/api/routes/complete', completeStop);
 
 app.listen(port, () => console.log(`Listening on port ${port}`))

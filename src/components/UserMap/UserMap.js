@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { compose, withProps } from "recompose";
+import PropTypes from 'prop-types';
 import { Marker, withScriptjs, withGoogleMap, GoogleMap, } from 'react-google-maps';
 import { GOOGLE_API_KEY } from '../../frontEndSecrets'
 import './UserMap.css';
@@ -32,3 +33,10 @@ class UserMap extends Component {
   }
 
 export default UserMap;
+
+UserMap.propTypes = {
+  location: PropTypes.shape({
+    lat: PropTypes.number,
+    lng: PropTypes.number
+  }).isRequired
+}

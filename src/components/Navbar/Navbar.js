@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../ducks/reducers/userReducer';
 import { getSession } from '../../ducks/reducers/userReducer';
@@ -16,10 +17,11 @@ constructor(props){
   }
 }
 
-  async componentDidMount(){
-    const response = await this.props.getSession()
-    this.setState({user: response.value.data})
-  }
+  // async componentDidMount(){
+  //   const response = await this.props.getSession()
+  //   console.log('response: ', response)
+  //   this.setState({user: response.value.data})
+  // }
 
   resetRedirect = () => {
     this.setState({redirect:false})
@@ -52,6 +54,9 @@ constructor(props){
   }
 
   render(){
+    if(!this.props.user.name){
+      return <Redirect to='/'/>
+    }
     if(this.state.redirect){
       this.resetRedirect()
       return (
@@ -78,7 +83,7 @@ constructor(props){
           </div>
         }
         <h5 className='navbarName'>{this.props.user.name}</h5>
-        <img className='navbarImg' src={this.props.user.img} />
+        <img className='navbarImg' src={this.props.user.img} alt='Navbar'/>
       </div>
       
     </div>
@@ -92,4 +97,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { getSession, logout })(Navbar);
+export default connect(mapStateToProps, { getSession, logout })(withRouter(Navbar));

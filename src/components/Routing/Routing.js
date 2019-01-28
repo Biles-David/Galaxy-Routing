@@ -20,7 +20,7 @@ class Routing extends Component {
       isLoaded: false,
       update: false,
       edit: false,
-      redirect: false
+      redirectRoute: false
     }
   }
 
@@ -48,6 +48,7 @@ class Routing extends Component {
     let fullRoute = this.clearArray(this.state.route)
     let body = { route: fullRoute }
     let add = await axios.put('/api/routes/add', body)
+    console.log(del, add);
   }
 
   handleSave = () => {
@@ -73,13 +74,11 @@ class Routing extends Component {
     let { route } = this.state
     route.splice(e.target.name, 1)
     this.setState({ route, update: !this.state.update })
-    console.log(this.state.route)
   }
 
   addRoute = async (locationId, reason) => {
     const { route } = this.state
     const body = { store_id: +locationId }
-    console.log(body)
     let result = await axios.post('/api/locations/exact', body)
     if (result.data) {
       const newRoute = {
@@ -122,12 +121,12 @@ class Routing extends Component {
               timer: 1000,
               showConfirmButton: false
             }).then(() => {
-              this.setState({redirect: true})
+              this.setState({redirectRoute: true})
             })          
           }
         })
     } else {
-      this.setState({redirect: true})
+      this.setState({redirectRoute: true})
     }
   }
 
@@ -160,7 +159,7 @@ class Routing extends Component {
         </div>
       )
     }
-    if(this.state.redirect){
+    if(this.state.redirectRoute){
       let reset = () => {this.setState({redirect:false})}
       reset()
       return (
@@ -172,7 +171,6 @@ class Routing extends Component {
         <h1 className='routingTitle'> Galaxy Routing </h1>
         <ParticlesEffect />
         <Navbar />
-        {/* <Link className='button' to='/admin/routing'><span>Back</span></Link> */}
         <button className='button' onClick={() => console.log('hit') || this.handleSwal()}><span>Back</span></button>
         <main className='routingPath'>
           <h1 className='routingPathTitle' >{`Route`}</h1>

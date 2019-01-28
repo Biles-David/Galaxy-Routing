@@ -6,6 +6,7 @@ const LOGIN_USER = 'LOGIN_USER';
 const GET_SESSION = 'GET_SESSION';
 const ADD_USER = 'ADD_USER';
 const LOGOUT = 'LOGOUT';
+const ROUTE_POSITION = 'ROUTE_POSITION';
 // const UPDATE_NAME = 'UPDATE_NAME';
 // const UPDATE_EMPLOYEE_NUMBER = 'UPDATE_EMPLOYEE_NUMBER';
 // const UPDATE_EMAIL = 'UPDATE_EMAIL';
@@ -61,6 +62,13 @@ export function logout() {
   return {
     type: LOGOUT,
     payload: axios.post('/users/logout')
+  }
+}
+
+export function addPosition() {
+  return {
+    type: ROUTE_POSITION,
+    payload: axios.post('/users/sessionAdd')
   }
 }
 
@@ -155,6 +163,11 @@ export default function (state = initialState, action) {
         error: 'Could not get Session'
       }
     case `${LOGOUT}_FULFILLED`:
+      return {
+        ...state,
+        user: action.payload.data
+      }
+    case `${ROUTE_POSITION}_FULFILLED`:
       return {
         ...state,
         user: action.payload.data

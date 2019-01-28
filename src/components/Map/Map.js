@@ -57,11 +57,7 @@ class Map extends Component {
     // creating Waypoints through Route redux
     const origin = route[0]
     const destination = route[route.length - 1]
-    const filterRoute = route.filter((e, i) => {
-      if (i !== 0 && i !== route.length - 1) {
-        return e
-      }
-    })
+    const filterRoute = route.filter((e,i) => i !== 0 && i !== route.length - 1 ? e : null)
     const waypoints = filterRoute.map((e, i) => {
       return { location: new google.maps.LatLng({ lat: +e.lat, lng: +e.lng }) }
     })
@@ -85,7 +81,7 @@ class Map extends Component {
 
   render() {
     return (
-      <DirectionsMap drawRoute={this.drawRoute} route={console.log('why dont: ', this.props.route)||this.props.route} directions={this.state.directions} update={this.props.update}/>
+      <DirectionsMap drawRoute={this.drawRoute} route={this.props.route} directions={this.state.directions} update={this.props.update}/>
     );
   }
 }

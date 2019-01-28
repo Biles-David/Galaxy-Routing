@@ -16,6 +16,7 @@
     "google-distance-matrix": "^1.1.1",
     "massive": "^5.7.2",
     "nodemon": "^1.18.9",
+    "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-google-maps": "^9.4.5",

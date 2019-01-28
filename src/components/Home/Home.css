@@ -65,3 +65,21 @@
   box-shadow: 3.5px 6px 5px 0px #3f3f3fd3;
   transform: translateY(1px) translateX(.5px)
 }
+
+@media ( max-width: 1000px) {
+  .homeTitle {
+    font-size: 5.5em;
+  }
+  .homeLogin, .homeReg {
+    height: 50px;
+    width: 150px;
+    font-size: 1em;
+    margin: 30px;
+  }
+}
+
+@media (max-width: 610px) {
+  .homeTitle {
+    font-size: 3em;
+  }
+}

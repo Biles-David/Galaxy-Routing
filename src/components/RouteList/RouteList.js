@@ -10,7 +10,7 @@ import axios from 'axios';
 import './RouteList.css';
 
 class RouteList extends Component {
-  constructor(){
+  constructor() {
     super()
     this.state = {
       addRoute: false
@@ -21,16 +21,15 @@ class RouteList extends Component {
     this.getRoute()
   }
 
-  getRoute(){
+  getRoute() {
     this.props.getRoutes()
   }
 
   handleAdd = () => {
-    this.setState({addRoute: !this.state.addRoute})
+    this.setState({ addRoute: !this.state.addRoute })
   }
 
   handleDelete = (e) => {
-    console.log(e.target.name)
     let index = e.target.name
     Swal.fire({
       title: 'Warning!',
@@ -49,7 +48,7 @@ class RouteList extends Component {
           timer: 1800,
           showConfirmButton: false
         }).then(() => {
-          axios.delete(`/api/routes/delete/${this.props.allRoutes[index].route_id}`).then( response => {
+          axios.delete(`/api/routes/delete/${this.props.allRoutes[index].route_id}`).then(response => {
             this.getRoute()
           })
         })
@@ -64,22 +63,22 @@ class RouteList extends Component {
       routes = allRoutes.map((e, i) => {
         return (
           <div className='routeList' key={i}>
-          <Link to={`/admin/routing/${allRoutes[i].route_id}`} key={i} className='routeDiv'>
-            <img className='routeImg' src={allRoutes[i].img} alt='img' />
-            <div>
-              <h1 className='routeTitle'>Route </h1>
-              <h2>{allRoutes[i].route_name}</h2>
-            </div>
-            <div>
-              <h1 className='routeTitle'>Driver </h1>
-              <h2>{allRoutes[i].first_name} {allRoutes[i].last_name} </h2>
-            </div>
-            <div>
-              <h1 className='routeTitle'>Route count </h1>
-              <h2>{allRoutes[i].count}</h2>
-            </div>
-          </Link>
-          <button name={i} className='deleteRoute' onClick={(e) => this.handleDelete(e)}>Delete -</button>
+            <Link to={`/admin/routing/${allRoutes[i].route_id}`} key={i} className='routeDiv'>
+              <img className='routeImg' src={allRoutes[i].img} alt='img' />
+              <div>
+                <h1 className='routeTitle'>Route </h1>
+                <h2>{allRoutes[i].route_name}</h2>
+              </div>
+              <div>
+                <h1 className='routeTitle'>Driver </h1>
+                <h2>{allRoutes[i].first_name} {allRoutes[i].last_name} </h2>
+              </div>
+              <div>
+                <h1 className='routeTitle'>Route count </h1>
+                <h2>{allRoutes[i].count}</h2>
+              </div>
+            </Link>
+            <button name={i} className='deleteRoute' onClick={(e) => this.handleDelete(e)}><img src='/icons/delete-photo.png' alt='remove' /></button>
           </div>
         )
       })
@@ -103,7 +102,7 @@ class RouteList extends Component {
         <main className='routesMain'>
           {routes}
         </main>
-        <AddRoute getRoute={this.getRoute} routeLength={this.props.allRoutes.length +1} handleAdd={this.handleAdd} addRoute={this.state.addRoute}/>
+        <AddRoute getRoute={this.getRoute} routeLength={this.props.allRoutes.length + 1} handleAdd={this.handleAdd} addRoute={this.state.addRoute} />
       </div >
     );
   }

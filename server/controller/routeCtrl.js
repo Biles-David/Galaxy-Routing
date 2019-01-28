@@ -40,11 +40,19 @@ function newRoute(req, res) {
   .catch(err => console.log(err))
 }
 
+function completeStop(req, res) {
+  const db = req.app.get('db');
+  db.complete_stop(req.body.route_id, req.body.location_id)
+  .then(response => res.status(200).json(response))
+  .catch(err => console.log(err))
+}
+
 module.exports = {
   getRouteByRouteId,
   getRoutes,
   addToRoute,
   deleteRoute,
   updateFullRoute,
-  newRoute
+  newRoute,
+  completeStop
 }

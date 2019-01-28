@@ -1,5 +1,4 @@
 .routesMain {
-  /* background: blue; */
   height: 50vh;
   margin: 0 10vw 12vh 20vw;
   display: flex;
@@ -75,15 +74,22 @@
 
 .deleteRoute {
   position: relative;
-  right: 9%;
+  background: none;
+  border: none;
   margin-top: auto;
   margin-bottom: auto;
-  color: white;
-  border: 2px solid white;
   z-index: 90;
+  outline: none;
+  cursor: pointer;
 }
 
-.addRoute, .deleteRoute {
+.deleteRoute:hover {
+  box-shadow: 0px 0px 40px 5px rgba(108, 152, 160, 0.6);
+  background: rgba(108, 152, 160, 0.4);
+  border-radius: 100px;
+}
+
+.addRoute {
   display: flex;
   justify-content: center;
   background: none;
@@ -93,7 +99,7 @@
   height: 40px;
 }
 
-.addRoute:hover, .deleteRoute:hover {
+.addRoute:hover {
   background: #737881;
   cursor: pointer;
 }
