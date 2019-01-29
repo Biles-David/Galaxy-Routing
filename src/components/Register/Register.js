@@ -86,7 +86,7 @@ class Register extends Component {
   render() {
     const fakeImg = '/images/fake-image.png'
     return (
-      <div className='homeDiv'>
+      <div className='reg_homeDiv'>
         <h1 className='loginTitle'> Galaxy Routing </h1>
         <div className='registerBody'>
           <div className='registerDiv'>

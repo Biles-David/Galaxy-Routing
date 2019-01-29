@@ -36,7 +36,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div className='homeDiv'>
+      <div className='login_homeDiv'>
         <h1 className='loginTitle'> Galaxy Routing </h1>
         <div className='loginDiv'>
           <h1>Login</h1>

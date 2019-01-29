@@ -43,9 +43,7 @@ async function login ( req, res ) {
     if(!check){
       res.status(410).json({error: "User or Password Incorrect"})
     } else {
-      // console.log(log[0])
       let user = log[0]
-      // console.log(user)
       req.session.user = {
         name: `${user.first_name} ${user.last_name}`,
         img: user.img,
@@ -54,7 +52,6 @@ async function login ( req, res ) {
         position: 0
       };
       res.status(200).json(req.session.user)
-      // console.log('Session.user after log: ', req.session.user)
     }
   }
 }
@@ -70,7 +67,6 @@ function addPosition ( req, res ) {
 
 async function logout ( req, res ) {
   req.session.destroy();
-  console.log(req.session)
   return res.sendStatus(200)
 }
 
