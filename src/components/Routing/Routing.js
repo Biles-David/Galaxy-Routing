@@ -81,9 +81,9 @@ class Routing extends Component {
     this.setState({route: route, edit: false, editNumber: null})
   }
 
-  handleDelete = (e) => {
+  handleDelete = (id) => {
     let { route } = this.state
-    route.splice(e.target.name, 1)
+    route.splice(id, 1)
     this.setState({ route, update: !this.state.update })
   }
 
@@ -158,7 +158,7 @@ class Routing extends Component {
               <span></span>
               <span></span>
             </div>
-            <div name={i} className='routeDelete' onClick={(e) => this.handleDelete(e)}>X</div>
+            <div name={i} className='routeDelete' onClick={() => this.handleDelete(i)}>X</div>
           </div>
         )
       })
