@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const massive = require('massive');
 const session = require('express-session');
 const { json } = require('body-parser');
+const path = require('path');
 const { SERVER_PORT, CONNECTION_STRING, SESSION_SECRET } = process.env;
 const port = SERVER_PORT
 
@@ -15,6 +16,8 @@ const { getChecklist, addToChecklist, deleteItem } = require('./controller/listC
 const { usersOnly, adminsOnly } = require('./middleware/authMiddleware');
 
 const app = express()
+
+app.use( express.static( `${__dirname}/../build` ) );
 
 app.use(json())
 app.use(session({
@@ -57,5 +60,9 @@ app.put('/api/routes/complete', completeStop);
 app.get('/api/checklist', getChecklist);
 app.post('/api/checklist/add', addToChecklist);
 app.delete('/api/checklist/delete/:id', deleteItem);
+
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '../build/index.html'));
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}`))
