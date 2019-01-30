@@ -11,6 +11,7 @@ const port = SERVER_PORT
 const { getUsers, register, login, sessionCheck, logout, addPosition } = require('./controller/userCtrl');
 const { getLocations, addCoordinates, getLatLng, getRouteForUser } = require('./controller/locationCtrl');
 const { getRouteByRouteId, getRoutes, addToRoute, deleteRoute, updateFullRoute, newRoute, completeStop } = require('./controller/routeCtrl');
+const { getChecklist, addToChecklist, deleteItem } = require('./controller/listCtrl');
 const { usersOnly, adminsOnly } = require('./middleware/authMiddleware');
 
 const app = express()
@@ -51,5 +52,10 @@ app.delete('/api/routes/delete/:id', deleteRoute);
 app.put('/api/routes/add', updateFullRoute);
 app.put('/api/routes/new/route', newRoute);
 app.put('/api/routes/complete', completeStop);
+
+//Checklist Endpoints
+app.get('/api/checklist', getChecklist);
+app.post('/api/checklist/add', addToChecklist);
+app.delete('/api/checklist/delete/:id', deleteItem);
 
 app.listen(port, () => console.log(`Listening on port ${port}`))

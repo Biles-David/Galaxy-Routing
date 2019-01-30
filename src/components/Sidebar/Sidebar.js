@@ -17,6 +17,10 @@ class Sidebar extends Component {
             <img className='sidebarIcon' src='/icons/file.png' alt='test' />
             <p>Switch to User</p>
           </Link>
+          <Link className='sidebarLink' to='/checklist'> 
+            <img className='sidebarIcon' src='/icons/checklist.png' alt='checklist'/>
+            <p>Checklist</p> 
+          </Link>
           {this.props.user.user.admin && <Link className={this.props.location.pathname === '/admin/routing' ? 'hidden' : 'sidebarLink'} to={`/admin/routing`}> <img className='sidebarIcon' src='/icons/network.png' alt='test' /> <p>Switch to Admin</p> </Link>}
         </div>
       </div>

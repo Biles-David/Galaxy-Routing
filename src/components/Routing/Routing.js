@@ -20,7 +20,8 @@ class Routing extends Component {
       isLoaded: false,
       update: false,
       edit: false,
-      redirectRoute: false
+      redirectRoute: false,
+      editNumber: null
     }
   }
 
@@ -62,12 +63,22 @@ class Routing extends Component {
     })
   }
 
-  handleDoubleClick = () => {
-    this.setState({edit:true})
+  handleDoubleClick = (i) => {
+    this.setState({edit:true, editNumber: i})
+  }
+
+  handleCancelEdit = () => {
+    this.setState({edit: false, editNumber: null})
   }
 
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value })
+  }
+
+  handleUpdate = (text, id) => {
+    let { route } = this.state
+    route[id].reasons = text
+    this.setState({route: route, edit: false, editNumber: null})
   }
 
   handleDelete = (e) => {
@@ -139,8 +150,8 @@ class Routing extends Component {
         return (
           <div className='routingBody' key={route[i].location_id}>
             <h1 className='routingNumber'>{alphabet[i]}</h1>
-            <p onDoubleClick={() => this.handleDoubleClick()} className={!this.state.edit ? 'reasons' : 'hidden'}>{route[i].reasons}</p>
-            <input className={this.state.edit ? 'editReasons' : 'hidden'}></input>
+            <p onDoubleClick={() => this.handleDoubleClick(i)} className={this.state.editNumber !== i ? 'reasons' : 'hidden'}>{route[i].reasons}</p>
+            <input name='reasons' className={this.state.editNumber === i ? 'editReasons' : 'hidden'} onChange={this.handleChange}></input>
             <h1 className='routeId'>{route[i].location_id}</h1>
             <div className='routingDrag'>
               <span></span>
@@ -177,6 +188,11 @@ class Routing extends Component {
           <button className='addBtn' onClick={() => this.setState({ canAdd: !this.state.canAdd })}>{this.state.canAdd ? 'Cancel' : 'Add'}</button>
           <button className='saveBtn' onClick={this.handleSave}>Save</button>
           <div className='routingList'>
+          <div className={this.state.edit ? 'routing_update_div' : 'hidden'}>
+            <p className='routing_update_reasons'> Update Reasons? </p>
+            <button onClick={() => this.handleCancelEdit()}>Cancel</button>
+            <button onClick={() => this.handleUpdate(this.state.reasons, this.state.editNumber)}>Confirm</button>
+          </div>
             <Reorder reorderId="my-list" lock="horizontal" onReorder={this.onReorder}>
               {routeMap}
             </Reorder>

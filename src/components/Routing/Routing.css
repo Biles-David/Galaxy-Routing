@@ -227,3 +227,29 @@
   text-shadow: 3px 3px 3px #969696;
   z-index: 5;
 }
+
+.routing_update_div {
+  position: absolute;
+  top: 27%;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  background: #80808096;
+}
+
+.routing_update_div button {
+  height: 50%;
+  margin: 10px;
+  background: none;
+  border: 1px solid black;
+  cursor: pointer;
+  outline: none;
+}
+
+.routing_update_div button:hover {
+  background: gray;
+}
+
+.routing_update_div button:active {
+  transform: translateY(1px) 
+}

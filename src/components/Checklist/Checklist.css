@@ -1,0 +1,102 @@
+.checklistMain {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff90;
+  width: 65%;
+  margin: 10vh auto auto 22vw;
+  border-radius: 5px;
+}
+
+.checklistDiv {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+}
+
+.listItems {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 5%;
+  align-items: center;
+  border-bottom: 1px solid black;
+  width: 80%;
+}
+
+.listItems input {
+  width: 1%;
+}
+
+.checklist_title {
+  position: absolute;
+  margin: 1.5vh 0 0 20vw;
+  color: white;
+  font-family: 'Jim Nightshade', cursive;;
+  font-size: 4em;
+  font-weight: bold;
+  text-shadow: 3px 3px 3px #969696;
+}
+
+.checklistMain h1 {
+  justify-self: center;
+  margin: 2vh auto;
+  border-bottom: 3px solid black;
+  width: 25%;
+}
+
+.checklist_admin {
+  position: absolute;
+  right: 15%;
+  top: 12%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 15%;
+  height: 5%;
+}
+
+.checklist_admin button, .checklist_submit {
+  width: 70px;
+  height: 25px;
+  background: none;
+  cursor: pointer;
+  border: 1px solid black;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.checklist_admin button:hover, .checklist_submit:hover {
+  background: gray;
+}
+
+.checklist_submit {
+  margin: 0 0 3% 5%;
+}
+
+.checklist_delete {
+  display: flex;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50px;
+  align-self: center;
+  cursor: pointer;
+  padding: 0;
+  border: 1px solid black;
+}
+
+.listItem_div {
+  display: flex;
+  width: 70%;
+}
+
+.checklist_add {
+  /* background: blue; */
+  height: 100px;
+  margin: auto;
+}
+
+.checklist_add input {
+  background:#e2e2e2cc;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}

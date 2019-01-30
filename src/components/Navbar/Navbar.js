@@ -13,15 +13,16 @@ constructor(props){
   this.state = {
     user: {},
     showTab: false,
-    redirect: false
+    redirect: false,
+    isLoaded: false
   }
 }
 
-  // async componentDidMount(){
-  //   const response = await this.props.getSession()
-  //   console.log('response: ', response)
-  //   this.setState({user: response.value.data})
-  // }
+  async componentDidMount(){
+    const response = await this.props.getSession()
+    this.setState({isLoaded: true})
+    console.log(response)
+  }
 
   resetRedirect = () => {
     this.setState({redirect:false})
@@ -54,7 +55,7 @@ constructor(props){
   }
 
   render(){
-    if(!this.props.user.name){
+    if(!this.props.user.name && this.state.isLoaded){
       return <Redirect to='/'/>
     }
     if(this.state.redirect){
