@@ -55,6 +55,10 @@ constructor(props){
   }
 
   render(){
+    console.log(this.props)
+    if(this.props.user.name && this.props.location.pathname === '/'){
+      return this.props.user.admin ? <Redirect to='/admin/routing'/> : <Redirect to={`/user/${this.props.user.id}`}/>
+    }
     if(!this.props.user.name && this.state.isLoaded){
       return <Redirect to='/'/>
     }

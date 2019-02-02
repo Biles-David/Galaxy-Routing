@@ -88,7 +88,7 @@ class UserMain extends Component {
         </div>
       )
     }
-    if (!this.props.route[this.state.count]) {
+    if (!this.props.route[this.props.position]) {
       return (
         <div className='userMainBody'>
           <Sidebar />

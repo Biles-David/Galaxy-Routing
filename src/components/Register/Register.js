@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 import { storage } from '../../firebase/index'
 import { connect } from 'react-redux';
@@ -54,10 +55,13 @@ class Register extends Component {
   handleSubmit = () => {
     const { first_name, last_name, email, url, password, passwordCheck } = this.state;
     if (password !== passwordCheck) {
-      window.alert("Passwords don't match")
-      return (
-        null
-      )
+      Swal.fire({
+        title: "Passwords don't match",
+        type: 'error',
+        showCancelButton: false,
+        showConfirmButton: false,
+        timer: 1000
+      })
     } else {
       if (this.state.img) {
         const uploadTask = storage.ref(`images/profile/${this.state.email}`).put(this.state.img);
@@ -75,11 +79,8 @@ class Register extends Component {
           }
         );
       }
-      const name = `${first_name} ${last_name}`
-      const user = { name, email, img: url || null, password }
-      this.props.addUser(user).then(response => {
-        // this.setState({user: response.value.data})
-      })
+      const user = { first_name, last_name, email, img: url || null, password }
+      this.props.addUser(user)
     }
   }
 
@@ -107,7 +108,7 @@ class Register extends Component {
             </div>
             <div className='registerBtnMain'>
               <Link to='/'> <button className='registerBtn' >Cancel</button> </Link>
-              <button className='registerBtn' onClick={() => this.handleSubmit()}>Submit!</button>
+              <button className='registerBtn' onClick={this.handleSubmit}>Submit!</button>
             </div>
           </div>
         </div>
