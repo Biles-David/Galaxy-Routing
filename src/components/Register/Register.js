@@ -80,7 +80,9 @@ class Register extends Component {
         );
       }
       const user = { first_name, last_name, email, img: url || null, password }
-      this.props.addUser(user)
+      this.props.addUser(user).then(response => {
+        return this.props.history.push(`/user/${this.props.user.user.id}`)
+      })
     }
   }
 
