@@ -21,7 +21,7 @@ class Routing extends Component {
       update: false,
       edit: false,
       redirectRoute: false,
-      editNumber: null
+      editNumber: null,
     }
   }
 
